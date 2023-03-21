@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3892425823085964770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3892425823085964772}
+  - component: {fileID: 3892425823085964773}
+  m_Layer: 0
+  m_Name: ProCamera2DTriggerBoundaries
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3892425823085964772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3892425823085964770}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.27, y: 0, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3892425823085964773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3892425823085964770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34b478e2db66d4cb7b7963570736e9e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pc2D: {fileID: 0}
+  _serializedAxis: 0
+  UpdateInterval: 0.1
+  TriggerShape: 0
+  UseTargetsMidPoint: 1
+  TriggerTarget: {fileID: 0}
+  NumericBoundaries: {fileID: 0}
+  AreBoundariesRelative: 1
+  UseTopBoundary: 1
+  TopBoundary: 10
+  UseBottomBoundary: 1
+  BottomBoundary: -10
+  UseLeftBoundary: 1
+  LeftBoundary: -10
+  UseRightBoundary: 1
+  RightBoundary: 10
+  TransitionDuration: 1
+  TransitionEaseType: 0
+  ChangeZoom: 0
+  TargetZoom: 1.5
+  ZoomSmoothness: 1
+  _setAsStartingBoundaries: 0
