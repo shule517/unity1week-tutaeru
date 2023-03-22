@@ -19,9 +19,9 @@ public class Scenario夜道 : MonoBehaviour
         //{
         //    SceneManager.LoadScene("よじまScene");
         //}
-        if (maxX < player.transform.position.x)
-        {
-            SceneManager.LoadScene("よじまScene");
-        }
+        // if (maxX < player.transform.position.x)
+        // {
+        //     SceneManager.LoadScene("よじまScene");
+        // }
     }
 }

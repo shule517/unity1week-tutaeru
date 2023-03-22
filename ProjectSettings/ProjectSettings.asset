@@ -660,6 +660,7 @@ PlayerSettings:
   scriptingDefineSymbols:
     Android: USING_URP
     Standalone: USING_URP
+    WebGL: USING_URP
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

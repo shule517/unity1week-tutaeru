@@ -352,7 +352,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1235014539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d19df50edb242d397ec87bbf26f864, type: 3}
+  m_Script: {fileID: 11500000, guid: 94df2769090a74e1493b3ae2b1f787dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}

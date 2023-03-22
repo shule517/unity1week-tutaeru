@@ -40,7 +40,7 @@ public class Hatena : MonoBehaviour
         Player.Instance.NowAnime = PlayerAnimation;
         foreach (var text in speechTexts)
         {
-            yield return TextManager.Instance.Speech2(text);
+            yield return TextManager.Instance.Speech2(text.Replace("/", "\n"));
         }
         Player.Instance.IsPlayable = true;
 
