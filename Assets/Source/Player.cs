@@ -187,7 +187,7 @@ public class Player : SingletonMonoBehaviour<Player>
     {
         if (nowAnime != oldAnime)
         {
-            Debug.Log("nowAnime != oldAnime -> " + nowAnime);
+            // Debug.Log("nowAnime != oldAnime -> " + nowAnime);
             oldAnime = nowAnime;
             animator.Play(nowAnime);
 
@@ -214,6 +214,7 @@ public class Player : SingletonMonoBehaviour<Player>
     public static string walkAnime = "PlayerWalk";
     public static string uruuruAnime = "PlayerUruuru";
     public static string namidaAnime = "PlayerNamida";
+    public static string ushiroAnime = "PlayerUshiro";
 
     string nowAnime = standAnime;
     string oldAnime = standAnime;

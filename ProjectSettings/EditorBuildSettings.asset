@@ -9,30 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScene.unity
     guid: c39ea260e4c6d2146bfe9d63483f75d6
   - enabled: 1
+    path: "Assets/Scenes/\u90E8\u5C4BScene.unity"
+    guid: 387b6bf4b4fc54b31b6856d8bda36336
+  - enabled: 1
     path: Assets/Scenes/BaseScene.unity
     guid: ff5023b16c4bbcd4c9505d6d123b1d5d
   - enabled: 1
-    path: "Assets/Scenes/mayonaka/\u30B2\u30FC\u30E0\u305F\u306E\u3057\u3044Scene.unity"
-    guid: df69bfc29cf0b4a3fa38a8b7f46effc2
-  - enabled: 1
-    path: "Assets/Scenes/mayonaka/\u30EF\u30F3\u30EB\u30FC\u30E0Scene.unity"
-    guid: b79bc9d5555f5481a8473d9b03a3a042
-  - enabled: 1
     path: "Assets/Scenes/\u793E\u755CScene.unity"
     guid: 7457f8a827c0c0c42b99dbb6b85d586b
-  - enabled: 1
-    path: "Assets/Scenes/mayonaka/\u591C\u9053Scene.unity"
-    guid: f38101cc38e1b4047b6a2d2faf84bb55
-  - enabled: 1
-    path: "Assets/Scenes/mayonaka/\u3088\u3058\u307EScene.unity"
-    guid: 7d56951af0dfade4cbb4e6e585ee69b0
-  - enabled: 1
-    path: "Assets/Scenes/mayonaka/\u8E0F\u5207Scene.unity"
-    guid: 56cdcd0d83b25be4097737a868bdc9e3
-  - enabled: 1
-    path: "Assets/Scenes/mayonaka/\u99C5\u30DB\u30FC\u30E0Scene.unity"
-    guid: 61e5c1c6dc38d0048a33c6e66cd47a85
-  - enabled: 1
-    path: "Assets/Scenes/mayonaka/\u3057\u307F\u3058\u307F\u30A8\u30F3\u30C7\u30A3\u30F3\u30B0Scene.unity"
-    guid: a3c1e43aa09cf4125a0d88039a94368b
   m_configObjects: {}
