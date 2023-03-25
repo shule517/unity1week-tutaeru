@@ -27,11 +27,14 @@ public class Scenario部屋 : MonoBehaviour
 
         yield return new WaitForSeconds(2.2f);
 
-        // ライトを点ける
-        SeManager.Instance.Play("電源ON-Air_Conditioner01-01");
-        globalLight.SetActive(true);
+        if (!GameManager.Instance.watchedEnding1)
+        {
+            // 初日だけライトを点ける。二日目は部屋が暗いまま 進む。
+            SeManager.Instance.Play("電源ON-Air_Conditioner01-01");
+            globalLight.SetActive(true);
 
-        yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.4f);
+        }
 
         // BGMスタート
         BgmManager.Instance.Play("audiostock_electronica");

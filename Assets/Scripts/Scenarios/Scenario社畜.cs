@@ -36,11 +36,32 @@ public class Scenario社畜 : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        if (GameManager.Instance.shachikuState == 社畜State.Title)
+        {
+            // タイトル画面
+            StartCoroutine(Title());
+        }
+        else if (GameManager.Instance.shachikuState == 社畜State.Ending1)
+        {
+            // 社畜エンディング
+            GameManager.Instance.watchedEnding1 = true; // ED1フラグ立てた
+            StartCoroutine(Ending1());
+        }
+
+        yield return null;
+    }
+
+    private IEnumerator Ending1()
+    {
+        yield return TextManager.Instance.Speech2("ED1: 変わらない日々");
         // var unixTime = ToUnixTime(System.DateTime.Now);
         // text.text = FromUnixTime(unixTime).ToString("M/dd HH:mm");
 
-        // hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 0f);
+        SceneManager.LoadScene("社畜Scene");
+    }
 
+    private IEnumerator Title()
+    {
         // タイトルをじわじわ出す
         gameTitleText.color = Color.black;
         gameTitleText.DOColor(Color.white, 5.0f);
@@ -73,6 +94,10 @@ public class Scenario社畜 : MonoBehaviour
         // 暗転
         yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 3f).SetEase(Ease.InQuad)).WaitForCompletion();
 
+        yield return new WaitForSeconds(3f);
+
+        SceneManager.LoadScene("部屋Scene");
+
         // 暗転から復帰
         // yield return new WaitForSeconds(4.5f);
 
@@ -97,10 +122,6 @@ public class Scenario社畜 : MonoBehaviour
 
         // yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 5f).SetEase(Ease.InQuad)).WaitForCompletion();
         // yield return new WaitForSeconds(4.5f);
-
-        yield return new WaitForSeconds(4.5f);
-
-        SceneManager.LoadScene("部屋Scene");
 
         // // 人のしゃべり声 ざわざわ
         // BgmManager.Instance.Play("busy-office-1");

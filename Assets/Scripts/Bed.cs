@@ -133,14 +133,18 @@ public class Bed : MonoBehaviour
 
             yield return new WaitForSeconds(1.0f);
 
-            if (true)
+            if (!GameManager.Instance.watchedEnding1)
             {
                 // 1日目の場合
                 BgmManager.Instance.Play("Clock-Second_Hand02-1(Dry-Loop)"); // 時計チクタク
 
                 yield return new WaitForSeconds(4.0f);
 
-                BgmManager.Instance.Play("Clock-Second_Hand02-8(Reverb)"); // 時計チクタク
+                // BgmManager.Instance.Play("Clock-Second_Hand02-8(Reverb)"); // 時計チクタク
+                BgmManager.Instance.Play("Clock-Second_Hand02-9(Reverb)"); // 時計ぐわんぐわん
+
+                // 社畜エンディングスタート
+                GameManager.Instance.shachikuState = 社畜State.Ending1;
                 SceneManager.LoadScene("社畜Scene");
             }
             else
