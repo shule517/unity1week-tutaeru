@@ -124,7 +124,7 @@ public class Bed : MonoBehaviour
 
             yield return new WaitForSeconds(1.0f);
 
-            if (false)
+            if (true)
             {
                 // 1日目の場合
                 BgmManager.Instance.Play("Clock-Second_Hand02-1(Dry-Loop)");
@@ -162,12 +162,12 @@ public class Bed : MonoBehaviour
                 // kagayakiHikouki.intensity = 2.0f;
 
                 // 紙ひこうきが飛んでいく
-                kamiHikouki.transform.localScale = new Vector3(4.0f, 4.0f, 1.0f); // 巨大化
-                kamiHikouki.transform.localPosition = new Vector3(-30.0f, -5.5f, 0.0f); // 右上に移動
-
+                // kamiHikouki.transform.localScale = new Vector3(4.0f, 4.0f, 1.0f); // 巨大化
+                // kamiHikouki.transform.localPosition = new Vector3(-30.0f, -5.5f, 0.0f); // 右上に移動
+                kamiHikouki.SetActive(true);
                 DOTween.Sequence()
-                .Append(kamiHikouki.transform.DOMoveX(-50f, 4.0f))
-                .Join(kamiHikouki.transform.DOMoveY(-4f, 4.0f).SetEase(Ease.OutQuad));
+                .Append(kamiHikouki.transform.DOMoveX(-50f, 4.0f).SetEase(Ease.InCubic))
+                .Join(kamiHikouki.transform.DOMoveY(-4f, 4.0f).SetEase(Ease.InCubic));
 
                 yield return new WaitForSeconds(3.5f);
 
