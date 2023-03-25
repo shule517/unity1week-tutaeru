@@ -13,10 +13,17 @@ public class Scenario夜道 : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        // ライトを点ける or 消す
         yield return new WaitForSeconds(0.8f);
-        SeManager.Instance.Play("カーソル移動8");
+
+        // ライトを点ける
+        SeManager.Instance.Play("電源ON-Air_Conditioner01-01");
         globalLight.SetActive(true);
+
+        yield return new WaitForSeconds(0.4f);
+
+        // BGMスタート
+        BgmManager.Instance.Play("audiostock_electronica");
+
         yield return null;
     }
 
