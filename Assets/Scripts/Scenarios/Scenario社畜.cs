@@ -37,12 +37,20 @@ public class Scenario社畜 : MonoBehaviour
         // var unixTime = ToUnixTime(System.DateTime.Now);
         // text.text = FromUnixTime(unixTime).ToString("M/dd HH:mm");
 
-        hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 0f);
+        // hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 0f);
 
         StartCoroutine(TypingBgm());
+        yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 5f).SetEase(Ease.InQuad));
+
+        yield return new WaitForSeconds(0.5f);
+        BgmManager.Instance.Play("MusMus-BGM-157");
+
+        yield return new WaitUntil(() => Input.GetButtonDown("決定"));
+        // SeManager.Instance.Play("決定ボタンを押す16");
+        // SeManager.Instance.Play("決定ボタンを押す29");
+        SeManager.Instance.Play("涙のしずく");
 
         // 暗転から復帰
-        yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 5f).SetEase(Ease.InQuad)).WaitForCompletion();
         // yield return new WaitForSeconds(4.5f);
 
         // var text = GetComponent<UnityEngine.UI.Text>();
@@ -69,7 +77,10 @@ public class Scenario社畜 : MonoBehaviour
 
         yield return new WaitForSeconds(4.5f);
 
-        SceneManager.LoadScene("部屋Scene");
+        if (false)
+        {
+            SceneManager.LoadScene("部屋Scene");
+        }
 
         // // 人のしゃべり声 ざわざわ
         // BgmManager.Instance.Play("busy-office-1");

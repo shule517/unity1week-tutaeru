@@ -90,7 +90,16 @@ public class Bed : MonoBehaviour
         // SeManager.Instance.Play("voice1");
         // SeManager.Instance.Play("決定ボタンを押す28");
         // SeManager.Instance.Play("Motion-Pop08-1");
-        SeManager.Instance.Play("Motion-Pop08-2");
+        // SeManager.Instance.Play("Motion-Pop08-2");
+        // SeManager.Instance.Play("voice2");
+
+    // SeManager.Instance.Play("決定ボタンを押す22");
+    // SeManager.Instance.Play("決定ボタンを押す29");
+        // SeManager.Instance.Play("決定ボタンを押す40");
+        // SeManager.Instance.Play("決定ボタンを押す41");
+        SeManager.Instance.Play("決定ボタンを押す46");
+        // SeManager.Instance.Play("決定ボタンを押す48");
+
         
         yield return new WaitForSeconds(0.5f);
 
@@ -127,9 +136,11 @@ public class Bed : MonoBehaviour
             if (true)
             {
                 // 1日目の場合
-                BgmManager.Instance.Play("Clock-Second_Hand02-1(Dry-Loop)");
+                BgmManager.Instance.Play("Clock-Second_Hand02-1(Dry-Loop)"); // 時計チクタク
 
                 yield return new WaitForSeconds(4.0f);
+
+                BgmManager.Instance.Play("Clock-Second_Hand02-8(Reverb)"); // 時計チクタク
                 SceneManager.LoadScene("社畜Scene");
             }
             else
