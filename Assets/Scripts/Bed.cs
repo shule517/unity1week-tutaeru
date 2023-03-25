@@ -12,6 +12,7 @@ public class Bed : MonoBehaviour
     public float interval = 1.5f;
     public string PlayerAnimation = Player.standAnime;
     private SpriteRenderer spriteRender;
+    private bool isLooping = false;
 
     void Start()
     {
@@ -25,6 +26,11 @@ public class Bed : MonoBehaviour
 
     void Update()
     {
+        if (isLooping && Input.GetButtonDown("決定"))
+        {
+            isLooping = false;
+        }
+
         if (spriteRender.enabled && Input.GetButtonDown("決定"))
         {
             if (!TextManager.Instance.IsTalking)
@@ -50,37 +56,36 @@ public class Bed : MonoBehaviour
             yield return TextManager.Instance.Speech2(text.Replace("/", "\n"));
         }
 
-        TextManager.Instance.Assign("寝ますか？   ▶ はい 　 いいえ");
+        TextManager.Instance.Assign("もう寝ますか？\n   ▶ はい 　 いいえ");
 
         var isYes = true;
-        var isLooping = true;
+        // var 
+        isLooping = true;
         while (isLooping)
         {
-            // 次に進む
-            if (Input.GetButtonDown("決定"))
-            {
-                isLooping = false;
-            }
-
             // 選択肢切り替え
             float horizontal = Input.GetAxisRaw("Horizontal");
             if (!isYes && horizontal < 0)
             {
                 // ピッ
                 SeManager.Instance.Play("voice1");
-                TextManager.Instance.Assign("寝ますか？   ▶ はい 　 いいえ");
+                TextManager.Instance.Assign("もう寝ますか？\n   ▶ はい 　 いいえ");
                 isYes = true;
             }
             else if (isYes && 0 < horizontal)
             {
                 // ピッ
                 SeManager.Instance.Play("voice1");
-                TextManager.Instance.Assign("寝ますか？      はい ▶ いいえ");
+                TextManager.Instance.Assign("もう寝ますか？\n　    はい ▶ いいえ");
                 isYes = false;
             }
             yield return new WaitForSeconds(0.1f);
         }
 
+        // 決定音
+        // SeManager.Instance.Play("voice1");
+        SeManager.Instance.Play("決定ボタンを押す28");
+        yield return new WaitForSeconds(0.5f);
 
         if (isYes)
         {
@@ -92,7 +97,9 @@ public class Bed : MonoBehaviour
             }
 
             // TODO: 暗転
+            SeManager.Instance.Play("衣擦れ1");
             // TODO: 寝るSE
+
             yield return new WaitForSeconds(0.3f);
 
             SceneManager.LoadScene("社畜Scene");

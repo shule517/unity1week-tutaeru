@@ -48,7 +48,7 @@ public class TextManager : SingletonMonoBehaviour<TextManager>
                 yield return new WaitUntil(() => Input.GetButtonDown("決定"));
                 yield return null;
                 TextManager.Instance.Assign("");
-                yield return new WaitForSeconds(0.3f);
+                yield return new WaitForSeconds(0.5f);
             }
         }
     }
@@ -61,7 +61,7 @@ public class TextManager : SingletonMonoBehaviour<TextManager>
         yield return new WaitUntil(() => Input.GetButtonDown("決定"));
         yield return null;
         TextManager.Instance.Assign("");
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
         IsTalking = false;
     }
 

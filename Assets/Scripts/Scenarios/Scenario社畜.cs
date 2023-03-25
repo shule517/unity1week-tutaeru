@@ -11,6 +11,8 @@ public class Scenario社畜 : MonoBehaviour
     public GameObject hitokage;
     public Light2D light2D;
     public static int days = 0;
+    public GameObject kaishaWorld;
+    public GameObject heyaWorld;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void Init()
@@ -32,9 +34,8 @@ public class Scenario社畜 : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        var unixTime = ToUnixTime(System.DateTime.Now);
-        text.text = FromUnixTime(unixTime).ToString("M/dd HH:mm");
-        // text.text = FromUnixTime(unixTime).ToString("MM/dd hh:mm");
+        // var unixTime = ToUnixTime(System.DateTime.Now);
+        // text.text = FromUnixTime(unixTime).ToString("M/dd HH:mm");
 
         hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 0f);
 
@@ -48,7 +49,7 @@ public class Scenario社畜 : MonoBehaviour
         // text.text = "2023/02/01";
         
 
-        yield return DOTween.Sequence().Append(DOTween.To(() => 0, (long x) => { unixTime = x; text.text = FromUnixTime(unixTime).ToString("MM/dd hh:mm");}, 100000000, 10).SetEase(Ease.InQuad)).WaitForCompletion();
+        // yield return DOTween.Sequence().Append(DOTween.To(() => 0, (long x) => { unixTime = x; text.text = FromUnixTime(unixTime).ToString("MM/dd hh:mm");}, 100000000, 10).SetEase(Ease.InQuad)).WaitForCompletion();
 
         // foreach(int i in Enumerable.Range(1, 100))
         // {
