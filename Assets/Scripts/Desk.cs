@@ -49,11 +49,21 @@ public class Desk : MonoBehaviour
         deskLight.SetActive(!deskLight.active);
         yield return new WaitForSeconds(0.8f);
 
-        if (deskLight.active)
+        if (GameManager.Instance.watchedEnding1)
         {
-            foreach (var text in speechTexts)
+            // 2日目は、紙ひこうきを作る
+            yield return TextManager.Instance.Speech2("TODO: 二日目は、紙ひこうきを作る。フラグ立てました。");
+            GameManager.Instance.hasKamihikouki = true;
+        }
+        else
+        {
+            // 1日目の会話をすすめる
+            if (deskLight.active)
             {
-                yield return TextManager.Instance.Speech2(text.Replace("/", "\n"));
+                foreach (var text in speechTexts)
+                {
+                    yield return TextManager.Instance.Speech2(text.Replace("/", "\n"));
+                }
             }
         }
 

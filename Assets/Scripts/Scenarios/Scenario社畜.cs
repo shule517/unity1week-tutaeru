@@ -57,6 +57,7 @@ public class Scenario社畜 : MonoBehaviour
         // var unixTime = ToUnixTime(System.DateTime.Now);
         // text.text = FromUnixTime(unixTime).ToString("M/dd HH:mm");
 
+        GameManager.Instance.shachikuState = 社畜State.Title;
         SceneManager.LoadScene("社畜Scene");
     }
 

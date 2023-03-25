@@ -15,6 +15,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     public 社畜State shachikuState = 社畜State.Title;
     public bool watchedEnding1 = false;
+    public bool hasKamihikouki = false;
 
     // Start is called before the first frame update
     void Start()

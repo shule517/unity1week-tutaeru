@@ -16,6 +16,9 @@ public class Scenario部屋 : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        // キャラを操作させない
+        Player.Instance.IsPlayable = false;
+
         // 暗転から復帰
         playerSpriteRender.color = new Color(1f, 1f, 1f, 0f);
         yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 3f).SetEase(Ease.InQuad)).WaitForCompletion();
@@ -26,6 +29,9 @@ public class Scenario部屋 : MonoBehaviour
         SeManager.Instance.Play("ドアを閉める2");
 
         yield return new WaitForSeconds(2.2f);
+
+        // キャラの操作OK
+        Player.Instance.IsPlayable = true;
 
         if (!GameManager.Instance.watchedEnding1)
         {
@@ -45,13 +51,5 @@ public class Scenario部屋 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (player.transform.position.x  < minX)
-        //{
-        //    SceneManager.LoadScene("よじまScene");
-        //}
-        // if (maxX < player.transform.position.x)
-        // {
-        //     SceneManager.LoadScene("よじまScene");
-        // }
     }
 }

@@ -133,7 +133,8 @@ public class Bed : MonoBehaviour
 
             yield return new WaitForSeconds(1.0f);
 
-            if (!GameManager.Instance.watchedEnding1)
+            // 紙ひこうきを作るまで、ずっと社畜ED
+            if (!GameManager.Instance.hasKamihikouki)
             {
                 // 1日目の場合
                 BgmManager.Instance.Play("Clock-Second_Hand02-1(Dry-Loop)"); // 時計チクタク
