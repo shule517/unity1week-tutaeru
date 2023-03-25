@@ -2344,6 +2344,7 @@ MonoBehaviour:
   light2D: {fileID: 1424152592}
   kaishaWorld: {fileID: 359859707}
   heyaWorld: {fileID: 882000260}
+  gameTitleText: {fileID: 657524576}
 --- !u!1 &1498481576
 GameObject:
   m_ObjectHideFlags: 0

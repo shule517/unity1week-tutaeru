@@ -4,6 +4,7 @@ using System.Collections;
 using DG.Tweening;
 using UnityEngine.Rendering.Universal;
 using System.Linq;
+using UnityEngine.UI;
 
 public class Scenario社畜 : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Scenario社畜 : MonoBehaviour
     public static int days = 0;
     public GameObject kaishaWorld;
     public GameObject heyaWorld;
+    public Text gameTitleText;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void Init()
@@ -39,16 +41,37 @@ public class Scenario社畜 : MonoBehaviour
 
         // hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 0f);
 
+        // タイトルをじわじわ出す
+        gameTitleText.color = Color.black;
+        gameTitleText.DOColor(Color.white, 5.0f);
+
+        // タイピング音
         StartCoroutine(TypingBgm());
+
         yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 5f).SetEase(Ease.InQuad));
 
         yield return new WaitForSeconds(0.5f);
         BgmManager.Instance.Play("MusMus-BGM-157");
+        BgmManager.Instance.audioSource.volume = 0.5f;
 
         yield return new WaitUntil(() => Input.GetButtonDown("決定"));
         // SeManager.Instance.Play("決定ボタンを押す16");
         // SeManager.Instance.Play("決定ボタンを押す29");
         SeManager.Instance.Play("涙のしずく");
+
+        // BGMを止める
+        gameTitleText.DOColor(Color.black, 5.0f);
+        BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 5.0f).WaitForCompletion();
+        hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 5f);
+
+        yield return new WaitForSeconds(5.0f);
+        gameTitleText.text = "";
+
+        yield return TextManager.Instance.Speech2("きょうも しごとが おわらない…");
+        yield return TextManager.Instance.Speech2("いったん きょうは もうかえろう…");
+
+        // 暗転
+        yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 3f).SetEase(Ease.InQuad)).WaitForCompletion();
 
         // 暗転から復帰
         // yield return new WaitForSeconds(4.5f);
@@ -77,10 +100,7 @@ public class Scenario社畜 : MonoBehaviour
 
         yield return new WaitForSeconds(4.5f);
 
-        if (false)
-        {
-            SceneManager.LoadScene("部屋Scene");
-        }
+        SceneManager.LoadScene("部屋Scene");
 
         // // 人のしゃべり声 ざわざわ
         // BgmManager.Instance.Play("busy-office-1");
