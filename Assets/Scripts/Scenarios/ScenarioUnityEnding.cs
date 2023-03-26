@@ -18,305 +18,331 @@ public class ScenarioUnityEnding : MonoBehaviour
     public GameObject kamiHikouki;
     private bool typingbgm = true;
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void Init()
-    {
-        days = 0;
-    }
-
-    public static long ToUnixTime(System.DateTime dt)
-    {
-        var dto = new System.DateTimeOffset(dt.Ticks, new System.TimeSpan(+09, 00, 00));
-        return dto.ToUnixTimeSeconds();
-    }
-
-    public static System.DateTime FromUnixTime(long unixTime)
-    {
-        return System.DateTimeOffset.FromUnixTimeSeconds(unixTime).LocalDateTime;
-    }
-
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        // TODO: デバッグ
-        GameManager.Instance.watchedEnding2 = true;
-        if (GameManager.Instance.watchedEnding2)
-        {
-            // ED3へ
-            StartCoroutine(Ending3());
-        }
-        else if (GameManager.Instance.shachikuState == 社畜State.Title)
-        {
-            // タイトル画面
-            StartCoroutine(Title());
-        }
-        else if (GameManager.Instance.shachikuState == 社畜State.Ending1)
-        {
-            // 社畜エンディング
-            GameManager.Instance.watchedEnding1 = true; // ED1フラグ立てた
-            StartCoroutine(Ending1());
-        }
+        yield return new WaitForSeconds(1.0f);
+        SeManager.Instance.Play("Clock-Second_Hand02-1(Dry-Loop)"); // 時計チクタク
+        yield return new WaitForSeconds(4.0f);
 
-        yield return null;
-    }
+        SeManager.Instance.audioSource.DOFade(endValue: 0f, duration: 2.5f);
+        BgmManager.Instance.audioSource.volume = 0;
+        yield return new WaitForSeconds(1.0f);
+        BgmManager.Instance.Play("Clock-Second_Hand02-6(Reverb-Loop)"); // 時計ぐわんぐわん
+        yield return new WaitForSeconds(1.0f);
+        BgmManager.Instance.audioSource.DOFade(endValue: 1f, duration: 2.5f);
+        yield return new WaitForSeconds(3.5f);
+        SeManager.Instance.audioSource.volume = 1;
 
-    private IEnumerator Ending3()
-    {
-        // タイトルをじわじわ出す
-        gameTitleText.color = Color.black;
-        gameTitleText.DOColor(Color.white, 5.0f);
+        // gameTitleText.text = "";
+        kaishaWorld.SetActive(true);
+        heyaWorld.SetActive(false);
+        yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 1f).SetEase(Ease.InQuad));
+        yield return new WaitForSeconds(1f);
 
-        // タイピング音
-        StartCoroutine(TypingBgm());
+        kaishaWorld.SetActive(false);
+        heyaWorld.SetActive(true);
+        yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 1f).SetEase(Ease.InQuad));
+        yield return new WaitForSeconds(1f);
+        // yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 1f).SetEase(Ease.InQuad));
+        yield return new WaitForSeconds(1f);
 
-        yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 5f).SetEase(Ease.InQuad));
-
-        yield return new WaitForSeconds(0.5f);
-        BgmManager.Instance.Play("MusMus-BGM-157");
-        BgmManager.Instance.audioSource.volume = 0.5f;
-
-        yield return new WaitUntil(() => Input.GetButtonDown("決定"));
-        // SeManager.Instance.Play("決定ボタンを押す16");
-        // SeManager.Instance.Play("決定ボタンを押す29");
-        SeManager.Instance.Play("涙のしずく");
-
-        // BGMを止める
-        gameTitleText.DOColor(Color.black, 5.0f);
-        BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 5.0f).WaitForCompletion();
-        hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 5f);
-
-        yield return new WaitForSeconds(5.0f);
-        gameTitleText.text = "";
-
-        // ED2後
         yield return TextManager.Instance.Speech2("… … …");
 
-        // // 暗転
-        // yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 3f).SetEase(Ease.InQuad)).WaitForCompletion();
+        BgmManager.Instance.Stop();
+        yield return TextManager.Instance.Speech2("やったー！ 完成した！");
 
-        // yield return new WaitForSeconds(3f);
+        // yield return new WaitForSeconds(1f);
 
-        // 紙ひこうきが飛んでいく
-        kamiHikouki.SetActive(true);
-        DOTween.Sequence()
-        .Append(kamiHikouki.transform.DOMoveX(-29.44f, 3.0f).SetEase(Ease.OutSine))
-        .Join(kamiHikouki.transform.DOMoveY(-0.47f, 3.0f).SetEase(Ease.OutSine));
+        // TextManager.Instance.Assign("ゲームを登録する");
 
-        // ヒコウキが届いたら、タイピングを止める
-        yield return new WaitForSeconds(3f);
-        SeManager.Instance.audioSource2.volume = 0f;
+        // yield return new WaitForSeconds(1f);
 
-        yield return TextManager.Instance.Speech2("え…？");
-        yield return TextManager.Instance.Speech2("紙ひこうき…？");
-        yield return TextManager.Instance.Speech2("どこから…？");
+        // // カチッ
 
-        yield return new WaitForSeconds(0.4f);
+        // yield return new WaitForSeconds(1f);
 
-        // 紙ひこうきを読む
-        SceneManager.LoadScene("紙ひこうきを読むScene");
+        // TextManager.Instance.Assign("あのころの じぶんへ");
+        // SeManager.Instance.Play("決定ボタンを押す31");
+
+        // yield return new WaitForSeconds(2f);
+
+        // TextManager.Instance.Assign("Unity1Week「つたえる」");
+        // SeManager.Instance.Play("決定ボタンを押す31");
+
+        yield return new WaitForSeconds(2f);
+        // TextManager.Instance.Assign("ED3: そして、あたらしいじぶんへ");
+        yield return TextManager.Instance.Speech2("ED3: そして、あたらしいじぶんへ");
+
+        // yield return new WaitUntil(() => Input.GetButtonDown("決定"));
+
+        // yield return TextManager.Instance.Speech2("あなたは 過去のじんぶへ 何を伝えたいですか？");
+        yield return TextManager.Instance.Speech2("あそんでくれて ありがとうございました！");
 
         yield return new WaitForSeconds(1f);
-    }
 
-    private IEnumerator Ending1()
-    {
-        // var unixTime = ToUnixTime(System.DateTime.Now);
-        // text.text = FromUnixTime(unixTime).ToString("M/dd HH:mm");
+        GameManager.Instance.InitFlag();
 
-        // for (int i = 0; i < 10; i++)
-        {
-            gameTitleText.text = "";
-            kaishaWorld.SetActive(true);
-            heyaWorld.SetActive(false);
-            yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 1f).SetEase(Ease.InQuad));
-            yield return new WaitForSeconds(5f);
-            yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 1f).SetEase(Ease.InQuad));
-            yield return new WaitForSeconds(1f);
-
-            kaishaWorld.SetActive(false);
-            heyaWorld.SetActive(true);
-            yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 1f).SetEase(Ease.InQuad));
-            yield return new WaitForSeconds(1f);
-            // yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 1f).SetEase(Ease.InQuad));
-            yield return new WaitForSeconds(1f);
-        }
-
-        yield return TextManager.Instance.Speech2("ED1: 変わらない日々");
-        GameManager.Instance.shachikuState = 社畜State.Title;
-        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("社畜Scene");
     }
 
-    private IEnumerator Title()
-    {
-        // タイトルをじわじわ出す
-        gameTitleText.color = Color.black;
-        gameTitleText.DOColor(Color.white, 5.0f);
+    // private IEnumerator Ending3()
+    // {
+    //     // タイトルをじわじわ出す
+    //     gameTitleText.color = Color.black;
+    //     gameTitleText.DOColor(Color.white, 5.0f);
 
-        // タイピング音
-        StartCoroutine(TypingBgm());
+    //     // タイピング音
+    //     StartCoroutine(TypingBgm());
 
-        yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 5f).SetEase(Ease.InQuad));
+    //     yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 5f).SetEase(Ease.InQuad));
 
-        yield return new WaitForSeconds(0.5f);
-        BgmManager.Instance.Play("MusMus-BGM-157");
-        BgmManager.Instance.audioSource.volume = 0.5f;
+    //     yield return new WaitForSeconds(0.5f);
+    //     BgmManager.Instance.Play("MusMus-BGM-157");
+    //     BgmManager.Instance.audioSource.volume = 0.5f;
 
-        yield return new WaitUntil(() => Input.GetButtonDown("決定"));
-        // SeManager.Instance.Play("決定ボタンを押す16");
-        // SeManager.Instance.Play("決定ボタンを押す29");
-        SeManager.Instance.Play("涙のしずく");
+    //     yield return new WaitUntil(() => Input.GetButtonDown("決定"));
+    //     // SeManager.Instance.Play("決定ボタンを押す16");
+    //     // SeManager.Instance.Play("決定ボタンを押す29");
+    //     SeManager.Instance.Play("涙のしずく");
 
-        // BGMを止める
-        gameTitleText.DOColor(Color.black, 5.0f);
-        BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 5.0f).WaitForCompletion();
-        hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 5f);
+    //     // BGMを止める
+    //     gameTitleText.DOColor(Color.black, 5.0f);
+    //     BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 5.0f).WaitForCompletion();
+    //     hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 5f);
 
-        yield return new WaitForSeconds(5.0f);
-        gameTitleText.text = "";
+    //     yield return new WaitForSeconds(5.0f);
+    //     gameTitleText.text = "";
 
-        if (!GameManager.Instance.watchedEnding1 && !GameManager.Instance.watchedEnding2)
-        {
-            // 初回
-            yield return TextManager.Instance.Speech2("きょうも しごとが おわらない…");
-            yield return TextManager.Instance.Speech2("いったん きょうは もうかえろう…");
-        }
-        else if (GameManager.Instance.watchedEnding1 && !GameManager.Instance.watchedEnding2)
-        {
-            // ED1後
-            yield return TextManager.Instance.Speech2("きょうも しごとが おわらない…");
-            yield return TextManager.Instance.Speech2("なんで この仕事してるんだっけ…");
-        }
-        else
-        {
-            // ED2後
-            yield return TextManager.Instance.Speech2("… … …");
-        }
+    //     // ED2後
+    //     yield return TextManager.Instance.Speech2("… … …");
 
-        // 暗転
-        yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 3f).SetEase(Ease.InQuad)).WaitForCompletion();
+    //     // // 暗転
+    //     // yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 3f).SetEase(Ease.InQuad)).WaitForCompletion();
 
-        yield return new WaitForSeconds(3f);
+    //     // yield return new WaitForSeconds(3f);
 
-        SceneManager.LoadScene("部屋Scene");
+    //     // 紙ひこうきが飛んでいく
+    //     kamiHikouki.SetActive(true);
+    //     DOTween.Sequence()
+    //     .Append(kamiHikouki.transform.DOMoveX(-29.44f, 3.0f).SetEase(Ease.OutSine))
+    //     .Join(kamiHikouki.transform.DOMoveY(-0.47f, 3.0f).SetEase(Ease.OutSine));
 
-        // 暗転から復帰
-        // yield return new WaitForSeconds(4.5f);
+    //     // ヒコウキが届いたら、タイピングを止める
+    //     yield return new WaitForSeconds(3f);
+    //     SeManager.Instance.audioSource2.volume = 0f;
 
-        // var text = GetComponent<UnityEngine.UI.Text>();
-        // text.text = "2023/02/01";
+    //     yield return TextManager.Instance.Speech2("え…？");
+    //     yield return TextManager.Instance.Speech2("紙ひこうき…？");
+    //     yield return TextManager.Instance.Speech2("どこから…？");
+
+    //     yield return new WaitForSeconds(0.4f);
+
+    //     // 紙ひこうきを読む
+    //     SceneManager.LoadScene("紙ひこうきを読むScene");
+
+    //     yield return new WaitForSeconds(1f);
+    // }
+
+    // private IEnumerator Ending1()
+    // {
+    //     // var unixTime = ToUnixTime(System.DateTime.Now);
+    //     // text.text = FromUnixTime(unixTime).ToString("M/dd HH:mm");
+
+    //     // for (int i = 0; i < 10; i++)
+    //     {
+    //         gameTitleText.text = "";
+    //         kaishaWorld.SetActive(true);
+    //         heyaWorld.SetActive(false);
+    //         yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 1f).SetEase(Ease.InQuad));
+    //         yield return new WaitForSeconds(5f);
+    //         yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 1f).SetEase(Ease.InQuad));
+    //         yield return new WaitForSeconds(1f);
+
+    //         kaishaWorld.SetActive(false);
+    //         heyaWorld.SetActive(true);
+    //         yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 1f).SetEase(Ease.InQuad));
+    //         yield return new WaitForSeconds(1f);
+    //         // yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 1f).SetEase(Ease.InQuad));
+    //         yield return new WaitForSeconds(1f);
+    //     }
+
+    //     yield return TextManager.Instance.Speech2("ED1: 変わらない日々");
+    //     GameManager.Instance.shachikuState = 社畜State.Title;
+    //     yield return new WaitForSeconds(1f);
+    //     SceneManager.LoadScene("社畜Scene");
+    // }
+
+    // private IEnumerator Title()
+    // {
+    //     // タイトルをじわじわ出す
+    //     gameTitleText.color = Color.black;
+    //     gameTitleText.DOColor(Color.white, 5.0f);
+
+    //     // タイピング音
+    //     StartCoroutine(TypingBgm());
+
+    //     yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 5f).SetEase(Ease.InQuad));
+
+    //     yield return new WaitForSeconds(0.5f);
+    //     BgmManager.Instance.Play("MusMus-BGM-157");
+    //     BgmManager.Instance.audioSource.volume = 0.5f;
+
+    //     yield return new WaitUntil(() => Input.GetButtonDown("決定"));
+    //     // SeManager.Instance.Play("決定ボタンを押す16");
+    //     // SeManager.Instance.Play("決定ボタンを押す29");
+    //     SeManager.Instance.Play("涙のしずく");
+
+    //     // BGMを止める
+    //     gameTitleText.DOColor(Color.black, 5.0f);
+    //     BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 5.0f).WaitForCompletion();
+    //     hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 5f);
+
+    //     yield return new WaitForSeconds(5.0f);
+    //     gameTitleText.text = "";
+
+    //     if (!GameManager.Instance.watchedEnding1 && !GameManager.Instance.watchedEnding2)
+    //     {
+    //         // 初回
+    //         yield return TextManager.Instance.Speech2("きょうも しごとが おわらない…");
+    //         yield return TextManager.Instance.Speech2("いったん きょうは もうかえろう…");
+    //     }
+    //     else if (GameManager.Instance.watchedEnding1 && !GameManager.Instance.watchedEnding2)
+    //     {
+    //         // ED1後
+    //         yield return TextManager.Instance.Speech2("きょうも しごとが おわらない…");
+    //         yield return TextManager.Instance.Speech2("なんで この仕事してるんだっけ…");
+    //     }
+    //     else
+    //     {
+    //         // ED2後
+    //         yield return TextManager.Instance.Speech2("… … …");
+    //     }
+
+    //     // 暗転
+    //     yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 3f).SetEase(Ease.InQuad)).WaitForCompletion();
+
+    //     yield return new WaitForSeconds(3f);
+
+    //     SceneManager.LoadScene("部屋Scene");
+
+    //     // 暗転から復帰
+    //     // yield return new WaitForSeconds(4.5f);
+
+    //     // var text = GetComponent<UnityEngine.UI.Text>();
+    //     // text.text = "2023/02/01";
         
 
-        // yield return DOTween.Sequence().Append(DOTween.To(() => 0, (long x) => { unixTime = x; text.text = FromUnixTime(unixTime).ToString("MM/dd hh:mm");}, 100000000, 10).SetEase(Ease.InQuad)).WaitForCompletion();
+    //     // yield return DOTween.Sequence().Append(DOTween.To(() => 0, (long x) => { unixTime = x; text.text = FromUnixTime(unixTime).ToString("MM/dd hh:mm");}, 100000000, 10).SetEase(Ease.InQuad)).WaitForCompletion();
 
-        // foreach(int i in Enumerable.Range(1, 100))
-        // {
-        //     unixTime += 10;
-        //     text.text = FromUnixTime(unixTime).ToString("MM/dd hh:mm");
-        //     yield return new WaitForSeconds(0.1f);
-        // }
+    //     // foreach(int i in Enumerable.Range(1, 100))
+    //     // {
+    //     //     unixTime += 10;
+    //     //     text.text = FromUnixTime(unixTime).ToString("MM/dd hh:mm");
+    //     //     yield return new WaitForSeconds(0.1f);
+    //     // }
 
-        // yield return TextManager.Instance.Speech2("今日も 仕事が終わらない…", 0.8f);
-        // yield return TextManager.Instance.Speech2("いったん 今日はもう帰ろう…", 0.8f);
+    //     // yield return TextManager.Instance.Speech2("今日も 仕事が終わらない…", 0.8f);
+    //     // yield return TextManager.Instance.Speech2("いったん 今日はもう帰ろう…", 0.8f);
 
-        // TextManager.Instance.Assign("");
-        // yield return new WaitForSeconds(4.5f);
+    //     // TextManager.Instance.Assign("");
+    //     // yield return new WaitForSeconds(4.5f);
 
-        // yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 5f).SetEase(Ease.InQuad)).WaitForCompletion();
-        // yield return new WaitForSeconds(4.5f);
+    //     // yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 5f).SetEase(Ease.InQuad)).WaitForCompletion();
+    //     // yield return new WaitForSeconds(4.5f);
 
-        // // 人のしゃべり声 ざわざわ
-        // BgmManager.Instance.Play("busy-office-1");
-        // BgmManager.Instance.audioSource.volume = 0;
-        // BgmManager.Instance.audioSource.DOFade(endValue: 1f, duration: 5f).SetEase(Ease.InQuad).WaitForCompletion();
-        // hitokage.GetComponent<SpriteRenderer>().DOFade(1f, 6f);
+    //     // // 人のしゃべり声 ざわざわ
+    //     // BgmManager.Instance.Play("busy-office-1");
+    //     // BgmManager.Instance.audioSource.volume = 0;
+    //     // BgmManager.Instance.audioSource.DOFade(endValue: 1f, duration: 5f).SetEase(Ease.InQuad).WaitForCompletion();
+    //     // hitokage.GetComponent<SpriteRenderer>().DOFade(1f, 6f);
 
-        // if (days == 0)
-        // {
-        //     // 初日は無言でいきたい
-        //     // 人のしゃべりごえ ざわざわ
-        //     // 光で一日を表現する → Eastword参考にできそう
-        //     yield return new WaitForSeconds(14.5f);
+    //     // if (days == 0)
+    //     // {
+    //     //     // 初日は無言でいきたい
+    //     //     // 人のしゃべりごえ ざわざわ
+    //     //     // 光で一日を表現する → Eastword参考にできそう
+    //     //     yield return new WaitForSeconds(14.5f);
 
-        //     // ざわざわ声をフェードアウト
-        //     BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 5f).SetEase(Ease.InQuad).WaitForCompletion();
-        //     hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 6f);
-        //     yield return new WaitForSeconds(14.5f);
+    //     //     // ざわざわ声をフェードアウト
+    //     //     BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 5f).SetEase(Ease.InQuad).WaitForCompletion();
+    //     //     hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 6f);
+    //     //     yield return new WaitForSeconds(14.5f);
 
-        //     // 暗転
-        //     yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 5f).SetEase(Ease.InQuad)).WaitForCompletion();
+    //     //     // 暗転
+    //     //     yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 5f).SetEase(Ease.InQuad)).WaitForCompletion();
 
-        //     days++;
-        //     SceneManager.LoadScene("ワンルームScene");
-        // }
-        // else if (days == 1)
-        // {
-        //     // 2日目
-        //     yield return new WaitForSeconds(4.5f);
+    //     //     days++;
+    //     //     SceneManager.LoadScene("ワンルームScene");
+    //     // }
+    //     // else if (days == 1)
+    //     // {
+    //     //     // 2日目
+    //     //     yield return new WaitForSeconds(4.5f);
 
-        //     yield return TextManager.Instance.Speech2("えっ… (A)", 0.8f);
-        //     yield return TextManager.Instance.Speech2("これ今日中ですか…？ (A)", 0.8f);
-        //     yield return TextManager.Instance.Speech2("あっ はい (A)", 0.8f);
-        //     yield return TextManager.Instance.Speech2("わかりました… (A)", 0.8f);
-        //     yield return TextManager.Instance.Speech2("なんとかします… (A)", 0.8f);
-        //     yield return new WaitForSeconds(4.5f);
+    //     //     yield return TextManager.Instance.Speech2("えっ… (A)", 0.8f);
+    //     //     yield return TextManager.Instance.Speech2("これ今日中ですか…？ (A)", 0.8f);
+    //     //     yield return TextManager.Instance.Speech2("あっ はい (A)", 0.8f);
+    //     //     yield return TextManager.Instance.Speech2("わかりました… (A)", 0.8f);
+    //     //     yield return TextManager.Instance.Speech2("なんとかします… (A)", 0.8f);
+    //     //     yield return new WaitForSeconds(4.5f);
 
-        //     // ざわざわ声をフェードアウト
-        //     BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 5f).SetEase(Ease.InQuad).WaitForCompletion();
-        //     hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 6f);
-        //     yield return new WaitForSeconds(14.5f);
+    //     //     // ざわざわ声をフェードアウト
+    //     //     BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 5f).SetEase(Ease.InQuad).WaitForCompletion();
+    //     //     hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 6f);
+    //     //     yield return new WaitForSeconds(14.5f);
 
-        //     // 暗転
-        //     yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 5f).SetEase(Ease.InQuad)).WaitForCompletion();
+    //     //     // 暗転
+    //     //     yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 5f).SetEase(Ease.InQuad)).WaitForCompletion();
 
-        //     days++;
-        //     SceneManager.LoadScene("ワンルームScene");
-        // }
-        // else
-        // {
-        //     // 3日目
-        //     yield return new WaitForSeconds(4.5f);
+    //     //     days++;
+    //     //     SceneManager.LoadScene("ワンルームScene");
+    //     // }
+    //     // else
+    //     // {
+    //     //     // 3日目
+    //     //     yield return new WaitForSeconds(4.5f);
 
-        //     yield return TextManager.Instance.Speech2("えっ…", 0.8f);
-        //     yield return TextManager.Instance.Speech2("よるちゃん やめちゃったんですか…", 0.8f);
-        //     yield return TextManager.Instance.Speech2("…そうなんですね", 0.8f);
-        //     yield return TextManager.Instance.Speech2("…わかりました", 0.8f);
+    //     //     yield return TextManager.Instance.Speech2("えっ…", 0.8f);
+    //     //     yield return TextManager.Instance.Speech2("よるちゃん やめちゃったんですか…", 0.8f);
+    //     //     yield return TextManager.Instance.Speech2("…そうなんですね", 0.8f);
+    //     //     yield return TextManager.Instance.Speech2("…わかりました", 0.8f);
 
-        //     // ざわざわ声をフェードアウト
-        //     BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 5f).SetEase(Ease.InQuad).WaitForCompletion();
-        //     hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 6f);
-        //     yield return new WaitForSeconds(14.5f);
+    //     //     // ざわざわ声をフェードアウト
+    //     //     BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 5f).SetEase(Ease.InQuad).WaitForCompletion();
+    //     //     hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 6f);
+    //     //     yield return new WaitForSeconds(14.5f);
 
-        //     // 暗転
-        //     yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 5f).SetEase(Ease.InQuad)).WaitForCompletion();
+    //     //     // 暗転
+    //     //     yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 5f).SetEase(Ease.InQuad)).WaitForCompletion();
 
-        //     yield return new WaitForSeconds(2.5f);
+    //     //     yield return new WaitForSeconds(2.5f);
 
-        //     // 2回目に 帰る意思 分岐
-        //     var texts = new string[] { "きょうも しごとが おわらない。",
-        //     "はぁ…",
-        //     "… … …",
-        //     "やりたいことって こんなこと だっけ…",
-        //     "みんな おかねの はなし ばかり…",
-        //     "なかまと 思える人は だれもいない…",
-        //     "… … …",
-        //     "じぶんは いいもの つくりたいだけなのに…",
-        //     "… … …",
-        //     "… … …",
-        //     "もう、しゅうでん の じかんだ",
-        //     "かえらなきゃ。" };
+    //     //     // 2回目に 帰る意思 分岐
+    //     //     var texts = new string[] { "きょうも しごとが おわらない。",
+    //     //     "はぁ…",
+    //     //     "… … …",
+    //     //     "やりたいことって こんなこと だっけ…",
+    //     //     "みんな おかねの はなし ばかり…",
+    //     //     "なかまと 思える人は だれもいない…",
+    //     //     "… … …",
+    //     //     "じぶんは いいもの つくりたいだけなのに…",
+    //     //     "… … …",
+    //     //     "… … …",
+    //     //     "もう、しゅうでん の じかんだ",
+    //     //     "かえらなきゃ。" };
 
-        //     foreach (string str in texts)
-        //     {
-        //         yield return TextManager.Instance.Speech2(str);
-        //     }
+    //     //     foreach (string str in texts)
+    //     //     {
+    //     //         yield return TextManager.Instance.Speech2(str);
+    //     //     }
 
-        //     TextManager.Instance.Assign("");
+    //     //     TextManager.Instance.Assign("");
 
-        //     days++;
-        //     SceneManager.LoadScene("夜道Scene");
-        // }
-    }
+    //     //     days++;
+    //     //     SceneManager.LoadScene("夜道Scene");
+    //     // }
+    // }
 
     // Update is called once per frame
     void Update()

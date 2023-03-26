@@ -34,6 +34,8 @@ public class Scenario紙ひこうきを読む : MonoBehaviour
 
         yield return null;
 
+        SceneManager.LoadScene("UnityEndingScene");
+
         // // 手紙は、後から登場
         // kamihikouki.SetActive(true);
         // tegami.SetActive(false);

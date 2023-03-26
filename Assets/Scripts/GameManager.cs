@@ -20,6 +20,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public bool watchedEnding3 = false; // ED3: そして、あたらしいじぶんへ
     public bool hasKamihikouki = false;
 
+    public void InitFlag()
+    {
+        shachikuState = 社畜State.Title;
+        watchedEnding1 = false; // ED1: 変わらない日々
+        watchedEnding2 = false; // ED2: あのころのじぶんへ
+        watchedEnding3 = false; // ED3: そして、あたらしいじぶんへ
+        hasKamihikouki = false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

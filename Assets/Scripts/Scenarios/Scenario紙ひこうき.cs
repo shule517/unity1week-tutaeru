@@ -19,18 +19,22 @@ public class Scenario紙ひこうき : MonoBehaviour
         light2D.color = Color.white;
 
         var waitTime = 0.941f*3.0f;
+        var spaceTime = 0.941f*2.0f;
 
         yield return new WaitForSeconds(waitTime);
         text.text = "- あのころの じぶんへ -"; yield return new WaitForSeconds(waitTime);
-        yield return new WaitForSeconds(waitTime);
+        text.text = ""; yield return new WaitForSeconds(spaceTime);
+        text.text = "- Pixelart -"; yield return new WaitForSeconds(waitTime);
+        text.text = "pixelはる"; yield return new WaitForSeconds(waitTime);
+        text.text = ""; yield return new WaitForSeconds(spaceTime);
         text.text = "- Font -"; yield return new WaitForSeconds(waitTime);
         text.text = "k8x12"; yield return new WaitForSeconds(waitTime);
-        text.text = ""; yield return new WaitForSeconds(waitTime);
+        text.text = ""; yield return new WaitForSeconds(spaceTime);
         text.text = "- SE -"; yield return new WaitForSeconds(waitTime);
         text.text = "効果音ラボ"; yield return new WaitForSeconds(waitTime);
         text.text = "効果音辞典"; yield return new WaitForSeconds(waitTime);
         text.text = "OtoLogic"; yield return new WaitForSeconds(waitTime);
-        text.text = ""; yield return new WaitForSeconds(waitTime);
+        text.text = ""; yield return new WaitForSeconds(spaceTime);
         text.text = "- BGM -"; yield return new WaitForSeconds(waitTime);
         text.text = "フリーBGM・音楽素材 MusMus"; yield return new WaitForSeconds(waitTime);
         text.text = "Audiostock"; yield return new WaitForSeconds(waitTime);
