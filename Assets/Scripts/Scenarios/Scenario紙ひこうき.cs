@@ -19,7 +19,7 @@ public class Scenario紙ひこうき : MonoBehaviour
         light2D.color = Color.white;
 
         var waitTime = 0.941f*3.0f;
-        var spaceTime = 0.941f*2.0f;
+        var spaceTime = 0.941f*3.0f;
 
         yield return new WaitForSeconds(waitTime);
         text.text = "- あのころの じぶんへ -"; yield return new WaitForSeconds(waitTime);
@@ -46,6 +46,9 @@ public class Scenario紙ひこうき : MonoBehaviour
         text.text = ""; yield return new WaitForSeconds(waitTime);
 
         text.text = "ED2: あのころの じぶんへ";
+        yield return new WaitForSeconds(waitTime); yield return new WaitForSeconds(waitTime);
+
+        text.text = "あなたは 過去の自分に 何をつたえたいですか？";
         yield return new WaitUntil(() => Input.GetButtonDown("決定"));
 
         BgmManager.Instance.audioSource.volume = 1;

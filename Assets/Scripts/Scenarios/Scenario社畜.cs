@@ -39,7 +39,7 @@ public class Scenario社畜 : MonoBehaviour
     IEnumerator Start()
     {
         // TODO: デバッグ
-        GameManager.Instance.watchedEnding2 = true;
+        // GameManager.Instance.watchedEnding2 = true;
         if (GameManager.Instance.watchedEnding2)
         {
             // ED3へ
