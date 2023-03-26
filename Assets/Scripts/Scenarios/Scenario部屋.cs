@@ -27,7 +27,7 @@ public class Scenario部屋 : MonoBehaviour
     {
         // // TODO: デバッグ フラグいじってます
         // GameManager.Instance.hasKamihikouki = true;
-        GameManager.Instance.watchedEnding1 = true;
+        // GameManager.Instance.watchedEnding1 = true;
         // // TODO: 後で消す
         // yield return new WaitForSeconds(0.4f);
 

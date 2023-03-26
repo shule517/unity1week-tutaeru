@@ -9,6 +9,7 @@ public enum 社畜State
     None,
     Title,
     Ending1,
+    Ending3
 };
 
 public class GameManager : SingletonMonoBehaviour<GameManager>

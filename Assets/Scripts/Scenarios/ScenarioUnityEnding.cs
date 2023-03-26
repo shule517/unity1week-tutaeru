@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 using System.Linq;
 using UnityEngine.UI;
 
-public class Scenario社畜 : MonoBehaviour
+public class ScenarioUnityEnding : MonoBehaviour
 {
     public UnityEngine.UI.Text text;
     public GameObject hitokage;
