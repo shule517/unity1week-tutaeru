@@ -13,6 +13,7 @@ public class Desk : MonoBehaviour
     public string PlayerAnimation = Player.standAnime;
     public GameObject deskLight;
     private SpriteRenderer spriteRender;
+    private bool isLooping = false;
 
     void Start()
     {
@@ -33,6 +34,11 @@ public class Desk : MonoBehaviour
                 StartCoroutine(Speech());
             }
         }
+
+        if (isLooping && Input.GetButtonDown("決定"))
+        {
+            isLooping = false;
+        }
     }
 
     IEnumerator Speech()
@@ -50,10 +56,55 @@ public class Desk : MonoBehaviour
         deskLight.SetActive(!deskLight.active);
         yield return new WaitForSeconds(0.8f);
 
-        if (GameManager.Instance.watchedEnding1)
+        if (GameManager.Instance.watchedEnding1 && deskLight.active)
         {
             // 2日目は、日記を書く
-            SceneManager.LoadScene("日記Scene");
+            var speechTexts = new List<string>() { "気持ちが もやもやする日は 日記を書こうかな…" };
+            foreach (var text in speechTexts)
+            {
+                yield return TextManager.Instance.Speech2(text.Replace("/", "\n"));
+            }
+
+            TextManager.Instance.Assign("日記を書きますか？\n   ▶ はい 　 いいえ");
+
+            var isYes = true;
+            // var 
+            isLooping = true;
+            while (isLooping)
+            {
+                // 選択肢切り替え
+                float horizontal = Input.GetAxisRaw("Horizontal");
+                if (!isYes && horizontal < 0)
+                {
+                    // ピッ
+                    SeManager.Instance.Play("voice1");
+                    TextManager.Instance.Assign("日記を書きますか？\n   ▶ はい 　 いいえ");
+                    isYes = true;
+                }
+                else if (isYes && 0 < horizontal)
+                {
+                    // ピッ
+                    SeManager.Instance.Play("voice1");
+                    TextManager.Instance.Assign("日記を書きますか？\n　    はい ▶ いいえ");
+                    isYes = false;
+                }
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            // 決定音
+            SeManager.Instance.Play("voice1");
+            TextManager.Instance.Assign("");
+
+            yield return new WaitForSeconds(0.5f);
+
+            if (isYes)
+            {
+                SceneManager.LoadScene("日記Scene");
+            }
+            else
+            {
+                // Player.Instance.NowAnime = Player.standAnime;
+            }
         }
         else
         {

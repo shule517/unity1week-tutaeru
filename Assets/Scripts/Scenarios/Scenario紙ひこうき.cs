@@ -13,14 +13,14 @@ public class Scenario紙ひこうき : MonoBehaviour
     IEnumerator Start()
     {
         // 明転から復帰（前半）
-        yield return DOTween.Sequence().Append(DOTween.To(() => 100f, (float x) => light2D.intensity = x, 1f, 5f).SetEase(Ease.OutCubic)).WaitForCompletion();
+        yield return DOTween.Sequence().Append(DOTween.To(() => 100f, (float x) => light2D.intensity = x, 1f, 5f).SetEase(Ease.Linear)).WaitForCompletion();
         // 明転から復帰（後半）
         light2D.color = Color.white;
 
         var waitTime = 0.941f*3.0f;
 
         yield return new WaitForSeconds(waitTime);
-        text.text = "- あのときの じぶんへ -"; yield return new WaitForSeconds(waitTime);
+        text.text = "- あのころの じぶんへ -"; yield return new WaitForSeconds(waitTime);
         yield return new WaitForSeconds(waitTime);
         text.text = "- BGM -"; yield return new WaitForSeconds(waitTime);
         text.text = "Audiostock"; yield return new WaitForSeconds(waitTime);
@@ -36,7 +36,7 @@ public class Scenario紙ひこうき : MonoBehaviour
         text.text = "unity1week: つたえる"; yield return new WaitForSeconds(waitTime);
         text.text = ""; yield return new WaitForSeconds(waitTime);
 
-        text.text = "ED2: あのときの じぶんへ";
+        text.text = "ED2: あのころの じぶんへ";
         yield return new WaitUntil(() => Input.GetButtonDown("決定"));
 
         BgmManager.Instance.audioSource.volume = 1;
