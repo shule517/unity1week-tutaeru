@@ -33,7 +33,7 @@ public class Scenario紙ひこうき : MonoBehaviour
         text.text = "k8x12"; yield return new WaitForSeconds(waitTime);
         text.text = ""; yield return new WaitForSeconds(waitTime);
         text.text = "- Event -"; yield return new WaitForSeconds(waitTime);
-        text.text = "unity1week: つたえる"; yield return new WaitForSeconds(waitTime);
+        text.text = "unity1week「つたえる」"; yield return new WaitForSeconds(waitTime);
         text.text = ""; yield return new WaitForSeconds(waitTime);
 
         text.text = "ED2: あのころの じぶんへ";

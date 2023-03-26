@@ -96,7 +96,7 @@ public class Bed : MonoBehaviour
         yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => kagayakiHikouki.intensity = x, 1f, 2f).SetEase(Ease.Linear)).WaitForCompletion();
 
         // よいん
-        BgmManager.Instance.Play("audiostock_891509_sample");
+        BgmManager.Instance.Play("audiostock_891509");
         BgmManager.Instance.audioSource.volume = 0;
         BgmManager.Instance.audioSource.DOFade(endValue: 1f, duration: 7.5f);
 
