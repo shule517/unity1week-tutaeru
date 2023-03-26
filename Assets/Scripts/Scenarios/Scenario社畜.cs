@@ -89,8 +89,23 @@ public class Scenario社畜 : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         gameTitleText.text = "";
 
-        yield return TextManager.Instance.Speech2("きょうも しごとが おわらない…");
-        yield return TextManager.Instance.Speech2("いったん きょうは もうかえろう…");
+        if (!GameManager.Instance.watchedEnding1 && !GameManager.Instance.watchedEnding2)
+        {
+            // 初回
+            yield return TextManager.Instance.Speech2("きょうも しごとが おわらない…");
+            yield return TextManager.Instance.Speech2("いったん きょうは もうかえろう…");
+        }
+        else if (GameManager.Instance.watchedEnding1 && !GameManager.Instance.watchedEnding2)
+        {
+            // ED1後
+            yield return TextManager.Instance.Speech2("きょうも しごとが おわらない…");
+            yield return TextManager.Instance.Speech2("なんで この仕事してるんだっけ…");
+        }
+        else
+        {
+            // ED2後
+            yield return TextManager.Instance.Speech2("… … …");
+        }
 
         // 暗転
         yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 3f).SetEase(Ease.InQuad)).WaitForCompletion();

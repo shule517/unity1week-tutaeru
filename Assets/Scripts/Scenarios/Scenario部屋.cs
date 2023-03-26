@@ -21,10 +21,11 @@ public class Scenario部屋 : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        // TODO: デバッグ フラグいじってます
-        GameManager.Instance.hasKamihikouki = true;
-        // TODO: 後で消す
-        yield return new WaitForSeconds(0.4f);
+        // // TODO: デバッグ フラグいじってます
+        // GameManager.Instance.hasKamihikouki = true;
+        GameManager.Instance.watchedEnding1 = true;
+        // // TODO: 後で消す
+        // yield return new WaitForSeconds(0.4f);
 
         if (!GameManager.Instance.hasKamihikouki)
         {

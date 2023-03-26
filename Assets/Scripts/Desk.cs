@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class Desk : MonoBehaviour
@@ -51,9 +52,8 @@ public class Desk : MonoBehaviour
 
         if (GameManager.Instance.watchedEnding1)
         {
-            // 2日目は、紙ひこうきを作る
-            yield return TextManager.Instance.Speech2("TODO: 二日目は、紙ひこうきを作る。フラグ立てました。");
-            GameManager.Instance.hasKamihikouki = true;
+            // 2日目は、日記を書く
+            SceneManager.LoadScene("日記Scene");
         }
         else
         {

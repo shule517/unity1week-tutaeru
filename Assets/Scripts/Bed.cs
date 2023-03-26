@@ -164,7 +164,7 @@ public class Bed : MonoBehaviour
         }
 
         // 決定音
-        // SeManager.Instance.Play("voice1");
+        SeManager.Instance.Play("voice1");
         // SeManager.Instance.Play("決定ボタンを押す28");
         // SeManager.Instance.Play("Motion-Pop08-1");
         // SeManager.Instance.Play("Motion-Pop08-2");
@@ -174,7 +174,7 @@ public class Bed : MonoBehaviour
     // SeManager.Instance.Play("決定ボタンを押す29");
         // SeManager.Instance.Play("決定ボタンを押す40");
         // SeManager.Instance.Play("決定ボタンを押す41");
-        SeManager.Instance.Play("決定ボタンを押す46");
+        // SeManager.Instance.Play("決定ボタンを押す46");
         // SeManager.Instance.Play("決定ボタンを押す48");
 
         
