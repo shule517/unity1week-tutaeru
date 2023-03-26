@@ -86,6 +86,17 @@ public class TextManager : SingletonMonoBehaviour<TextManager>
         text.text = str;
     }
 
+    public IEnumerator AssignAnimation(string message, float wordTime = 0.1f)
+    {
+        Debug.Log("AssignAnimation: message:" + message);
+        text.text = "";
+        foreach (char str in message.ToArray())
+        {
+            text.text += str;
+            yield return new WaitForSeconds(wordTime);
+        }
+    }
+
     void Append(string str)
     {
         text.text += str;

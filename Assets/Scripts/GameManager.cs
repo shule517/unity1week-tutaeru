@@ -14,7 +14,9 @@ public enum 社畜State
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     public 社畜State shachikuState = 社畜State.Title;
-    public bool watchedEnding1 = false;
+    public bool watchedEnding1 = false; // ED1: 変わらない日々
+    public bool watchedEnding2 = false; // ED2: あのころのじぶんへ
+    public bool watchedEnding3 = false; // ED3: そして、あたらしいじぶんへ
     public bool hasKamihikouki = false;
 
     // Start is called before the first frame update

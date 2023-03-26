@@ -103,7 +103,9 @@ public class Scenario部屋 : MonoBehaviour
         deskLight.SetActive(false);
 
         // キャラの操作OK
+        yield return new WaitForSeconds(0.8f);
         Player.Instance.IsPlayable = true;
+        Player.Instance.NowAnime = Player.standAnime;
 
         yield return null;
     }

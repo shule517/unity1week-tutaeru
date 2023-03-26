@@ -39,9 +39,86 @@ public class Bed : MonoBehaviour
         {
             if (!TextManager.Instance.IsTalking)
             {
-                StartCoroutine(Speech());
+                if (GameManager.Instance.hasKamihikouki)
+                {
+                    StartCoroutine(KamihikoukiEnding());
+                }
+                else
+                {
+                    StartCoroutine(Speech());
+                }
             }
         }
+    }
+
+    IEnumerator KamihikoukiEnding()
+    {
+        // ! を消す
+        spriteRender.enabled = false;
+
+        // 操作できないようにする
+        Player.Instance.IsPlayable = false;
+        Player.Instance.NowAnime = PlayerAnimation;
+
+        // テキスト
+        var yesSpeechTexts = new List<string>() { "… … …", "…おやすみなさい" };
+        foreach (var text in yesSpeechTexts)
+        {
+            yield return TextManager.Instance.Speech2(text.Replace("/", "\n"));
+        }
+
+        // ライトを点消す と BGMも止まる
+        if (globalLight.active)
+        {
+            SeManager.Instance.Play("電源ON-Air_Conditioner01-01");
+            globalLight.SetActive(false);
+        }
+        BgmManager.Instance.Stop();
+        yield return new WaitForSeconds(1.0f);
+
+        // ふとんに入る
+        SeManager.Instance.Play("衣擦れ1");
+        Player.Instance.NowAnime = Player.ushiroAnime;
+
+        yield return new WaitForSeconds(1.0f);
+
+        // Playerを無効にすると暗転する（Playerにライトがついてるから）
+        Player.Instance.gameObject.SetActive(false);
+        // TODO: 寝るSE
+
+        yield return new WaitForSeconds(1.0f);
+
+        // ぼやん
+        yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => kagayakiHikouki.intensity = x, 0.2f, 3f).SetEase(Ease.Linear)).WaitForCompletion();
+        yield return DOTween.Sequence().Append(DOTween.To(() => 0.2f, (float x) => kagayakiHikouki.intensity = x, 0f, 2f).SetEase(Ease.Linear)).WaitForCompletion();
+
+        // ぼやーん(前半)
+        yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => kagayakiHikouki.intensity = x, 1f, 2f).SetEase(Ease.Linear)).WaitForCompletion();
+
+        // よいん
+        BgmManager.Instance.Play("audiostock_891509_sample");
+        BgmManager.Instance.audioSource.volume = 0;
+        BgmManager.Instance.audioSource.DOFade(endValue: 1f, duration: 7.5f);
+
+        // ぼやーん(後半)
+        yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => kagayakiHikouki.intensity = x, 0f, 1.5f).SetEase(Ease.Linear)).WaitForCompletion();
+
+        // ぱーっ！！（前半）
+        yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => kagayakiHikouki.intensity = x, 100f, 4f).SetEase(Ease.OutQuad));
+        yield return new WaitForSeconds(2.1f);
+        // ぱーっ！！（後半）
+        yield return DOTween.Sequence().Append(DOTween.To(() => 7f, (float x) => kagayakiHikouki.pointLightOuterRadius = x, 150f, 3f).SetEase(Ease.OutQuad)).WaitForCompletion();
+
+        // 紙ひこうきが飛んでいく
+        kamiHikouki.SetActive(true);
+        DOTween.Sequence()
+        .Append(kamiHikouki.transform.DOMoveX(-60f, 4.0f).SetEase(Ease.InCubic))
+        .Join(kamiHikouki.transform.DOMoveY(-4f, 4.0f).SetEase(Ease.InCubic));
+
+        yield return new WaitForSeconds(5.5f);
+
+        // 紙ひこうきEDへ
+        SceneManager.LoadScene("紙ひこうきScene");
     }
 
     IEnumerator Speech()
@@ -52,11 +129,6 @@ public class Bed : MonoBehaviour
         // 操作できないようにする
         Player.Instance.IsPlayable = false;
         Player.Instance.NowAnime = PlayerAnimation;
-
-        if (GameManager.Instance.hasKamihikouki)
-        {
-            TextManager.Instance.Assign("TODO: 選択肢なしで いきなり紙ひこうきエンディングスタートさせる");
-        }
 
         // テキスト
         var speechTexts = new List<string>() { "そろそろ 寝ようかな…" };
@@ -139,8 +211,8 @@ public class Bed : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
 
             // 紙ひこうきを作るまで、ずっと社畜ED
-            if (!GameManager.Instance.hasKamihikouki)
-            {
+            // if (!GameManager.Instance.hasKamihikouki)
+            // {
                 // 1日目の場合
                 BgmManager.Instance.Play("Clock-Second_Hand02-1(Dry-Loop)"); // 時計チクタク
 
@@ -152,49 +224,9 @@ public class Bed : MonoBehaviour
                 // 社畜エンディングスタート
                 GameManager.Instance.shachikuState = 社畜State.Ending1;
                 SceneManager.LoadScene("社畜Scene");
-            }
-            else
-            {
-                // 2日目の場合
-                yield return new WaitForSeconds(1.5f);
-
-                // ぼやん
-                yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => kagayakiHikouki.intensity = x, 0.2f, 3f).SetEase(Ease.Linear)).WaitForCompletion();
-                yield return DOTween.Sequence().Append(DOTween.To(() => 0.2f, (float x) => kagayakiHikouki.intensity = x, 0f, 2f).SetEase(Ease.Linear)).WaitForCompletion();
-
-                // ぼやーん(前半)
-                yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => kagayakiHikouki.intensity = x, 1f, 2f).SetEase(Ease.Linear)).WaitForCompletion();
-
-                // よいん
-                BgmManager.Instance.Play("audiostock_891509_sample");
-                BgmManager.Instance.audioSource.volume = 0;
-                BgmManager.Instance.audioSource.DOFade(endValue: 1f, duration: 7.5f);
-
-                // ぼやーん(後半)
-                yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => kagayakiHikouki.intensity = x, 0f, 1.5f).SetEase(Ease.Linear)).WaitForCompletion();
-
-                // ぱーっ！！（前半）
-                yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => kagayakiHikouki.intensity = x, 100f, 4f).SetEase(Ease.OutQuad));
-                yield return new WaitForSeconds(2.5f);
-                // ぱーっ！！（後半）
-                yield return DOTween.Sequence().Append(DOTween.To(() => 7f, (float x) => kagayakiHikouki.pointLightOuterRadius = x, 150f, 3f).SetEase(Ease.OutQuad)).WaitForCompletion();
-
-                // ライトの強さをもとに戻す
-                // kagayakiHikouki.intensity = 2.0f;
-
-                // 紙ひこうきが飛んでいく
-                // kamiHikouki.transform.localScale = new Vector3(4.0f, 4.0f, 1.0f); // 巨大化
-                // kamiHikouki.transform.localPosition = new Vector3(-30.0f, -5.5f, 0.0f); // 右上に移動
-                kamiHikouki.SetActive(true);
-                DOTween.Sequence()
-                .Append(kamiHikouki.transform.DOMoveX(-50f, 4.0f).SetEase(Ease.InCubic))
-                .Join(kamiHikouki.transform.DOMoveY(-4f, 4.0f).SetEase(Ease.InCubic));
-
-                yield return new WaitForSeconds(3.5f);
-
-                // 紙ひこうきEDへ
-                SceneManager.LoadScene("紙ひこうきScene");
-            }
+            // }
+            // else
+            // {
 
             // 操作可能にする
             // Player.Instance.IsPlayable = true;
