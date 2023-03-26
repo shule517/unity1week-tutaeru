@@ -53,11 +53,30 @@ public class Scenario社畜 : MonoBehaviour
 
     private IEnumerator Ending1()
     {
-        yield return TextManager.Instance.Speech2("ED1: 変わらない日々");
         // var unixTime = ToUnixTime(System.DateTime.Now);
         // text.text = FromUnixTime(unixTime).ToString("M/dd HH:mm");
 
+        // for (int i = 0; i < 10; i++)
+        {
+            gameTitleText.text = "";
+            kaishaWorld.SetActive(true);
+            heyaWorld.SetActive(false);
+            yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 1f).SetEase(Ease.InQuad));
+            yield return new WaitForSeconds(3f);
+            yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 1f).SetEase(Ease.InQuad));
+            yield return new WaitForSeconds(1f);
+
+            kaishaWorld.SetActive(false);
+            heyaWorld.SetActive(true);
+            yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 1f).SetEase(Ease.InQuad));
+            yield return new WaitForSeconds(1f);
+            // yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 1f).SetEase(Ease.InQuad));
+            yield return new WaitForSeconds(1f);
+        }
+
+        yield return TextManager.Instance.Speech2("ED1: 変わらない日々");
         GameManager.Instance.shachikuState = 社畜State.Title;
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("社畜Scene");
     }
 
