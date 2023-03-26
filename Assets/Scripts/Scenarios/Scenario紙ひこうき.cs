@@ -13,8 +13,9 @@ public class Scenario紙ひこうき : MonoBehaviour
     IEnumerator Start()
     {
         // 明転から復帰（前半）
-        yield return DOTween.Sequence().Append(DOTween.To(() => 100f, (float x) => light2D.intensity = x, 1f, 5f).SetEase(Ease.Linear)).WaitForCompletion();
+        yield return DOTween.Sequence().Append(DOTween.To(() => 1.5f, (float x) => light2D.intensity = x, 1f, 5f).SetEase(Ease.Linear)).WaitForCompletion();
         // 明転から復帰（後半）
+        yield return new WaitForSeconds(0.3f);
         light2D.color = Color.white;
 
         var waitTime = 0.941f*3.0f;
@@ -23,11 +24,15 @@ public class Scenario紙ひこうき : MonoBehaviour
         text.text = "- あのころの じぶんへ -"; yield return new WaitForSeconds(waitTime);
         yield return new WaitForSeconds(waitTime);
         text.text = "- BGM -"; yield return new WaitForSeconds(waitTime);
+        text.text = "フリーBGM・音楽素材 MusMus"; yield return new WaitForSeconds(waitTime);
         text.text = "Audiostock"; yield return new WaitForSeconds(waitTime);
+        text.text = "No.140678 切なくも温かいエレクトロニカ"; yield return new WaitForSeconds(waitTime);
+        text.text = "No.891509 エンディング・かわいい・楽しい EDM"; yield return new WaitForSeconds(waitTime);
         text.text = ""; yield return new WaitForSeconds(waitTime);
         text.text = "- SE -"; yield return new WaitForSeconds(waitTime);
-        text.text = "効果音辞典"; yield return new WaitForSeconds(waitTime);
         text.text = "効果音ラボ"; yield return new WaitForSeconds(waitTime);
+        text.text = "効果音辞典"; yield return new WaitForSeconds(waitTime);
+        text.text = "OtoLogic"; yield return new WaitForSeconds(waitTime);
         text.text = ""; yield return new WaitForSeconds(waitTime);
         text.text = "- Font -"; yield return new WaitForSeconds(waitTime);
         text.text = "k8x12"; yield return new WaitForSeconds(waitTime);
