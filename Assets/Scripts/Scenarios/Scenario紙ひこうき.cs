@@ -34,6 +34,7 @@ public class Scenario紙ひこうき : MonoBehaviour
         text.text = "効果音ラボ"; yield return new WaitForSeconds(waitTime);
         text.text = "効果音辞典"; yield return new WaitForSeconds(waitTime);
         text.text = "OtoLogic"; yield return new WaitForSeconds(waitTime);
+        text.text = "無料効果音で遊ぼう！"; yield return new WaitForSeconds(waitTime);
         text.text = ""; yield return new WaitForSeconds(spaceTime);
         text.text = "- BGM -"; yield return new WaitForSeconds(waitTime);
         text.text = "フリーBGM・音楽素材 MusMus"; yield return new WaitForSeconds(waitTime);

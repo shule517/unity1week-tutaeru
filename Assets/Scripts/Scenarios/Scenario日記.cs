@@ -150,10 +150,27 @@ public class Scenario日記 : MonoBehaviour
         GameManager.Instance.hasKamihikouki = true; // 紙ひこうきを作った
         SceneManager.LoadScene("部屋Scene");
 
-        yield return null;    }
+        yield return null;
+    }
+
+    IEnumerator YotsubanoCrover()
+    {
+        // TODO: ロード
+        yield return new WaitForSeconds(1f);
+
+        // 引き出しを開ける
+        // SeManager.Instance.Play("wooden_drawer_C");
+        SeManager.Instance.Play("wooden_drawer_O");
+
+        // 四つ葉のクローバー登場
+        yield return new WaitForSeconds(3f);
+
+        yield return null;
+    }
 
     IEnumerator Start()
     {
+        yield return YotsubanoCrover();
         yield return Nikki();
         yield return Kamihikouki();
     }
