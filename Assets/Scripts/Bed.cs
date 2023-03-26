@@ -53,6 +53,11 @@ public class Bed : MonoBehaviour
         Player.Instance.IsPlayable = false;
         Player.Instance.NowAnime = PlayerAnimation;
 
+        if (GameManager.Instance.hasKamihikouki)
+        {
+            TextManager.Instance.Assign("TODO: 選択肢なしで いきなり紙ひこうきエンディングスタートさせる");
+        }
+
         // テキスト
         var speechTexts = new List<string>() { "そろそろ 寝ようかな…" };
         foreach (var text in speechTexts)

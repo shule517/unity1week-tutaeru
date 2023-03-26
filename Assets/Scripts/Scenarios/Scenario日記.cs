@@ -23,7 +23,7 @@ public class Scenario日記 : MonoBehaviour
 
         var writeText = @"あの頃の自分へ
       
-１人でいることは
+ひとりでいることは
 わるいことじゃないんだよ。
       
 でも、大丈夫。
@@ -58,7 +58,7 @@ public class Scenario日記 : MonoBehaviour
 
         SeManager.Instance.Play("紙を広げる1");
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.7f - 0.15f); // 一文字増やしたので+0.15f
         var ottaText = @"
       
 
@@ -83,9 +83,9 @@ public class Scenario日記 : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        yield return TextManager.Instance.Speech2("\nあの頃の自分に 届いたらいいのになー");
         yield return TextManager.Instance.Speech2("\n… … …");
-        // yield return TextManager.Instance.Speech2("\nそろそろ寝よっか");
+        yield return TextManager.Instance.Speech2("\nあの頃の自分に 届いたらいいのにな…");
+        // yield return TextManager.Instance.Speech2("\… … … そろそろ寝よ");
 
         GameManager.Instance.hasKamihikouki = true; // 紙ひこうきを作った
         SceneManager.LoadScene("部屋Scene");
