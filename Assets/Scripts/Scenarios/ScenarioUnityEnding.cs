@@ -50,7 +50,7 @@ public class ScenarioUnityEnding : MonoBehaviour
         yield return TextManager.Instance.Speech2("… … …");
 
         BgmManager.Instance.Stop();
-        yield return TextManager.Instance.Speech2("やったー！ 完成した！");
+        yield return TextManager.Instance.Speech2("やった… 完成した…！");
 
         // yield return new WaitForSeconds(1f);
 
