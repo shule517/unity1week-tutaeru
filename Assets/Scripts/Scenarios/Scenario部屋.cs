@@ -21,6 +21,11 @@ public class Scenario部屋 : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        // TODO: デバッグ フラグいじってます
+        GameManager.Instance.hasKamihikouki = true;
+        // TODO: 後で消す
+        yield return new WaitForSeconds(0.4f);
+
         if (!GameManager.Instance.hasKamihikouki)
         {
             // 初日
@@ -30,6 +35,7 @@ public class Scenario部屋 : MonoBehaviour
         else
         {
             // 紙ひこうきエンディング
+            Player.Instance.IsPlayable = false; // キャラの操作NG
             kamihikouki.SetActive(true);
             deskLight.SetActive(true);
             Player.Instance.gameObject.transform.position = new Vector3(-29f, -3.68f, 0f); // 机の前まで移動

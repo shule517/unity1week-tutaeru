@@ -22,14 +22,18 @@ public class Scenario日記 : MonoBehaviour
         // SeManager.Instance.Play("writing_in_a_pencil", 1f, 0.2f);
 
         var writeText = @"あの頃の自分へ
-      
+
 ひとりでいることは
 わるいことじゃないんだよ。
       
-でも、大丈夫。
+でも、大丈夫！
       
 おたがいのこと 分かり合える人に
 これから 出会えるから";
+
+// ひとに合わせすぎなくても いいんだよ。
+// ぜんぶ みんなに合わせなくて いいんだよ。
+
 
         foreach (char str in writeText.ToCharArray())
         {
@@ -64,7 +68,7 @@ public class Scenario日記 : MonoBehaviour
 
 わるいことじゃないんだよ。
       
-でも、大丈夫。
+でも、大丈夫！
       
 おたがいのこと 分かり合える人に
 これから 出会えるから";
