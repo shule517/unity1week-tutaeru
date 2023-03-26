@@ -18,9 +18,9 @@ public class Scenario紙ひこうきを読む : MonoBehaviour
         tegami.SetActive(false);
 
         yield return new WaitForSeconds(1f);
-        SeManager.Instance.Play("紙を広げる1");
+        SeManager.Instance.Play("紙を広1");
         // yield return new WaitForSeconds(2f);
-        // SeManager.Instance.Play("紙を広げる1");
+        // SeManager.Instance.Play("紙を広1");
 
         // 紙ひこうきを広げて、手紙へ
         kamihikouki.SetActive(false);
@@ -51,7 +51,7 @@ public class Scenario紙ひこうきを読む : MonoBehaviour
         // kamihikouki.SetActive(false);
         // tegami.SetActive(true);
 
-        // SeManager.Instance.Play("紙を広げる1");
+        // SeManager.Instance.Play("紙を広1");
         // yield return new WaitForSeconds(1f);
 
 
