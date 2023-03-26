@@ -17,6 +17,10 @@ public class Scenario部屋 : MonoBehaviour
     public GameObject camera;
     public GameObject hatenaDesk;
     public GameObject hatenaKamihikouki;
+    public GameObject hatenaMadoAkarui;
+    public GameObject hatenaMadoKurai;
+    public GameObject hatenaIllustAkarui;
+    public GameObject hatenaIllustKurai;
 
     // Start is called before the first frame update
     IEnumerator Start()
@@ -26,6 +30,13 @@ public class Scenario部屋 : MonoBehaviour
         GameManager.Instance.watchedEnding1 = true;
         // // TODO: 後で消す
         // yield return new WaitForSeconds(0.4f);
+
+        // 暗い時の窓のメッセージを有効
+        hatenaMadoAkarui.SetActive(false);
+        hatenaMadoKurai.SetActive(true);
+        // 暗い時の絵のメッセージを有効
+        hatenaIllustAkarui.SetActive(false);
+        hatenaIllustKurai.SetActive(true);
 
         if (!GameManager.Instance.hasKamihikouki)
         {
@@ -76,6 +87,14 @@ public class Scenario部屋 : MonoBehaviour
             // 初日だけライトを点ける。二日目は部屋が暗いまま 進む。
             SeManager.Instance.Play("電源ON-Air_Conditioner01-01");
             globalLight.SetActive(true);
+
+            // 明るい時の窓のメッセージを有効
+            hatenaMadoAkarui.SetActive(true);
+            hatenaMadoKurai.SetActive(false);
+
+            // 明るい時の絵のメッセージを有効
+            hatenaIllustAkarui.SetActive(true);
+            hatenaIllustKurai.SetActive(false);
 
             yield return new WaitForSeconds(0.4f);
         }
