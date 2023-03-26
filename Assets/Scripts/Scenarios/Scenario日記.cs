@@ -11,7 +11,7 @@ public class Scenario日記 : MonoBehaviour
     public GameObject kamihikouki;
     public GameObject nikki;
 
-    IEnumerator Start()
+    IEnumerator Nikki()
     {
         // 紙ひこうきは、後から登場
         kamihikouki.SetActive(false);
@@ -19,7 +19,50 @@ public class Scenario日記 : MonoBehaviour
         text.text = "";
         yield return new WaitForSeconds(0.8f);
 
-        // SeManager.Instance.Play("writing_in_a_pencil", 1f, 0.2f);
+        var writeText = @"ひさびさに日記を書く。
+仕事について
+考えぐちゃぐちゃになっていた。
+その後いろいろなゴタゴタがあって
+何も進んでいない。
+最近死んでいた
+自分と向きあわないと
+本当の意味で死んでしまう。";
+//         var writeText = @"9/20(月) 22:56〜
+// ひさびさに日記を書く。
+// やく１ヶ月ぶりの日記。
+// 6月っくらいから
+// 仕事について考えぐちゃぐちゃになっていた。
+// その後いろいろなゴタゴタがあって
+// 何も進んでいない。
+// 最近死んでいた
+// 自分と向きあわないと
+// 本当の意味で死んでしまう。";
+
+// ひとに合わせすぎなくても いいんだよ。
+// ぜんぶ みんなに合わせなくて いいんだよ。
+
+
+        foreach (char str in writeText.ToCharArray())
+        {
+            text.text += str;
+            if (str != ' ' && str != '\n')
+            {
+                SeManager.Instance.Play("voice1", Random.Range(0.95f, 1f));
+            }
+            yield return new WaitForSeconds(0.15f);
+        }
+    
+    
+        yield return new WaitForSeconds(15000f);
+    }
+
+    IEnumerator Kamihikouki()
+    {
+        // 紙ひこうきは、後から登場
+        kamihikouki.SetActive(false);
+
+        text.text = "";
+        yield return new WaitForSeconds(0.8f);
 
         var writeText = @"あの頃の自分へ
 
@@ -94,7 +137,12 @@ public class Scenario日記 : MonoBehaviour
         GameManager.Instance.hasKamihikouki = true; // 紙ひこうきを作った
         SceneManager.LoadScene("部屋Scene");
 
-        yield return null;
+        yield return null;    }
+
+    IEnumerator Start()
+    {
+        yield return Nikki();
+        yield return Kamihikouki();
     }
 
     // Update is called once per frame

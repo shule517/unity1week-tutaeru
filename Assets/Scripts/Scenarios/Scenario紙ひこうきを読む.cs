@@ -31,6 +31,7 @@ public class Scenario紙ひこうきを読む : MonoBehaviour
 
         yield return TextManager.Instance.Speech2("\n… … …");
         yield return TextManager.Instance.Speech2("\n…じぶんからの手紙？");
+        yield return TextManager.Instance.Speech2("\n… … …");
 
         yield return null;
 
