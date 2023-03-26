@@ -206,30 +206,26 @@ public class Bed : MonoBehaviour
 
             // Playerを無効にすると暗転する（Playerにライトがついてるから）
             Player.Instance.gameObject.SetActive(false);
-            // TODO: 寝るSE
 
             yield return new WaitForSeconds(1.0f);
 
-            // 紙ひこうきを作るまで、ずっと社畜ED
-            // if (!GameManager.Instance.hasKamihikouki)
-            // {
-                // 1日目の場合
-                BgmManager.Instance.Play("Clock-Second_Hand02-1(Dry-Loop)"); // 時計チクタク
+            // 1日目の場合
+            SeManager.Instance.Play("Clock-Second_Hand02-1(Dry-Loop)"); // 時計チクタク
 
-                yield return new WaitForSeconds(4.0f);
+            yield return new WaitForSeconds(4.0f);
 
-                // BgmManager.Instance.Play("Clock-Second_Hand02-8(Reverb)"); // 時計チクタク
-                BgmManager.Instance.Play("Clock-Second_Hand02-9(Reverb)"); // 時計ぐわんぐわん
+            SeManager.Instance.audioSource.DOFade(endValue: 0f, duration: 2.5f);
+            BgmManager.Instance.audioSource.volume = 0;
+            yield return new WaitForSeconds(1.0f);
+            BgmManager.Instance.Play("Clock-Second_Hand02-6(Reverb-Loop)"); // 時計ぐわんぐわん
+            yield return new WaitForSeconds(1.0f);
+            BgmManager.Instance.audioSource.DOFade(endValue: 1f, duration: 2.5f);
+            yield return new WaitForSeconds(3.5f);
+            SeManager.Instance.audioSource.volume = 1;
 
-                // 社畜エンディングスタート
-                GameManager.Instance.shachikuState = 社畜State.Ending1;
-                SceneManager.LoadScene("社畜Scene");
-            // }
-            // else
-            // {
-
-            // 操作可能にする
-            // Player.Instance.IsPlayable = true;
+            // 社畜エンディングスタート
+            GameManager.Instance.shachikuState = 社畜State.Ending1;
+            SceneManager.LoadScene("社畜Scene");
         }
         else
         {

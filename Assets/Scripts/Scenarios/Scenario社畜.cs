@@ -62,7 +62,7 @@ public class Scenario社畜 : MonoBehaviour
             kaishaWorld.SetActive(true);
             heyaWorld.SetActive(false);
             yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 1f).SetEase(Ease.InQuad));
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
             yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 1f).SetEase(Ease.InQuad));
             yield return new WaitForSeconds(1f);
 
