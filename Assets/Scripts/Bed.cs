@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,19 @@ public class Bed : MonoBehaviour
 
     void Update()
     {
+        // if (spriteRender.enabled)
+        // {
+        //     var kyori = Math.Abs(Player.Instance.gameObject.transform.position.x - this.transform.position.x);
+        //     Debug.Log("kyori: " + kyori);
+        // }
+
+        if (spriteRender.enabled && Math.Abs(Player.Instance.gameObject.transform.position.x - this.transform.position.x) > 1.4f)
+        {
+            // 1.4以上はなれてても!が表示されてたらバグ
+            // ! を消す
+            spriteRender.enabled = false;
+        }
+
         if (isLooping && Input.GetButtonDown("決定"))
         {
             isLooping = false;

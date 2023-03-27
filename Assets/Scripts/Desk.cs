@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,13 @@ public class Desk : MonoBehaviour
 
     void Update()
     {
+        if (spriteRender.enabled && Math.Abs(Player.Instance.gameObject.transform.position.x - this.transform.position.x) > 1.4f)
+        {
+            // 1.4以上はなれてても!が表示されてたらバグ
+            // ! を消す
+            spriteRender.enabled = false;
+        }
+
         if (spriteRender.enabled && Input.GetButtonDown("決定"))
         {
             if (!TextManager.Instance.IsTalking)
