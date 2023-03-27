@@ -47,7 +47,8 @@ public class Scenario紙ひこうき : MonoBehaviour
 
         text.text = "ED2: あのころの じぶんへ";
         yield return new WaitUntil(() => Input.GetButtonDown("決定"));
-        yield return new WaitForSeconds(waitTime); yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(waitTime);
+        text.text = "";
 
         // text.text = "あなたは 過去の自分に 何をつたえたいですか？";
         // yield return new WaitUntil(() => Input.GetButtonDown("決定"));

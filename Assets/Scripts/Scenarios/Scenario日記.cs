@@ -208,9 +208,15 @@ public class Scenario日記 : MonoBehaviour
 
     IEnumerator Start()
     {
+        BgmManager.Instance.audioSource.volume = 1;
+        yield return BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 2f);
+
         yield return Nikki();
         yield return YotsubanoCrover();
         yield return Kamihikouki();
+
+        BgmManager.Instance.Stop();
+        BgmManager.Instance.audioSource.volume = 1;
     }
 
     // Update is called once per frame
