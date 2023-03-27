@@ -98,7 +98,7 @@ public class Bed : MonoBehaviour
         // よいん
         BgmManager.Instance.Play("audiostock_891509");
         BgmManager.Instance.audioSource.volume = 0;
-        BgmManager.Instance.audioSource.DOFade(endValue: 1f, duration: 7.5f);
+        BgmManager.Instance.audioSource.DOFade(endValue: 0.7f, duration: 7.5f);
 
         // ぼやーん(後半)
         yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => kagayakiHikouki.intensity = x, 0f, 1.5f).SetEase(Ease.Linear)).WaitForCompletion();

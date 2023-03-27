@@ -54,7 +54,10 @@ public class ScenarioUnityEnding : MonoBehaviour
         // BgmManager.Instance.Play("audiostock_891509");
         // BgmManager.Instance.audioSource.volume = 0.5f;
 
-        yield return TextManager.Instance.Speech2("やった… 完成できた…！");
+        yield return TextManager.Instance.Speech2("やった… 完成した…");
+        yield return TextManager.Instance.Speech2("… … やったー！！");
+        yield return TextManager.Instance.Speech2("大変だったけど ほんとに やってよかった…！");
+        // yield return TextManager.Instance.Speech2("大変だったけど ほんとによかった…！");
 
         // yield return new WaitForSeconds(1f);
 
@@ -83,6 +86,9 @@ public class ScenarioUnityEnding : MonoBehaviour
 
         // BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 2.5f);
         yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 2f).SetEase(Ease.InQuad));
+
+        BgmManager.Instance.Play("MusMus-BGM-157-original");
+        BgmManager.Instance.audioSource.volume = 0.5f;
 
         // yield return new WaitUntil(() => Input.GetButtonDown("決定"));
         // yield return TextManager.Instance.Speech2("あなたは 過去のじんぶへ 何を伝えたいですか？");

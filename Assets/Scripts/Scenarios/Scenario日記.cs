@@ -11,6 +11,7 @@ public class Scenario日記 : MonoBehaviour
     public GameObject kamihikouki;
     public GameObject nikkiAnimation;
     public GameObject nikkiStatic;
+    public GameObject crover;
 
     IEnumerator Nikki()
     {
@@ -21,14 +22,21 @@ public class Scenario日記 : MonoBehaviour
         text.text = "";
         yield return new WaitForSeconds(0.8f);
 
-        var writeText = @"ひさびさに日記を書く。
+        // ひさびさに日記を書く。     
+        // var days = new List<string>() { "日", "月", "火", "水", "木", "金", "土" };
+        // var wday = days[(int)System.DateTime.Now.DayOfWeek];
+        // var writeText = @$"{System.DateTime.Now.ToString($"1M/dd({wday}) HH:mm〜")}     
+
+        var writeText = @"ひさびさに日記を書く。     
+
 仕事について
-考えぐちゃぐちゃになっていた。
+考えぐちゃぐちゃになっていた。   
 その後いろいろなゴタゴタがあって
 何も進んでいない。
-最近死んでいた
+      
+最近死んでいた    
 自分と向きあわないと
-本当の意味で死んでしまう。";
+本当の意味で死んでしまう。     ";
 
         foreach (char str in writeText.ToCharArray())
         {
@@ -44,16 +52,26 @@ public class Scenario日記 : MonoBehaviour
         SeManager.Instance.Play("紙を広1");
 
         text.text = "";
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(1.4f);
 
-        var writeText2 = @"何をしたら良いか
-分からなくなってきた。
-自分は何のためにいきているのか
-考えすぎて動いていないのが
-すごく不安になる
-何かを作らないとやばい
-何かに集中したい。
-何かにぼっとうしたい。";
+        var writeText2 = @"そこを抜けるためにも
+『ずっとやりたかったことをやりなさい』
+を読みはじめたんだった   
+
+結局何かをやりはじめてしまえば
+前向きになる   
+やらないとやる気は出ない   
+
+やるのとやらないのが大きな違い。";
+
+//         var writeText2 = @"何をしたら良いか
+// 分からなくなってきた。
+// 自分は何のためにいきているのか
+// 考えすぎて動いていないのが
+// すごく不安になる
+// 何かを作らないとやばい
+// 何かに集中したい。
+// 何かにぼっとうしたい。";
 
         foreach (char str in writeText2.ToCharArray())
         {
@@ -77,14 +95,14 @@ public class Scenario日記 : MonoBehaviour
         text.text = "";
         yield return new WaitForSeconds(0.8f);
 
-        var writeText = @"あの頃の自分へ
+        var writeText = @"あの頃の自分へ       
 
-ひとりでいることは
-わるいことじゃないんだよ。
+ひとりでいることは  
+わるいことじゃないんだよ。    
       
-でも、大丈夫！
-      
-おたがいのこと 分かり合える人に
+でも、大丈夫！  
+
+おたがいのこと 分かり合える人に  
 これから 出会えるから";
 
 // ひとに合わせすぎなくても いいんだよ。
@@ -155,23 +173,43 @@ public class Scenario日記 : MonoBehaviour
 
     IEnumerator YotsubanoCrover()
     {
-        // TODO: ロード
-        yield return new WaitForSeconds(1f);
+        // yield return TextManager.Instance.Speech2("ひさびさに 本読み直してみよう");
 
         // 引き出しを開ける
         // SeManager.Instance.Play("wooden_drawer_C");
-        SeManager.Instance.Play("wooden_drawer_O");
+        // SeManager.Instance.Play("wooden_drawer_O");
 
         // 四つ葉のクローバー登場
-        yield return new WaitForSeconds(3f);
+        SeManager.Instance.Play("紙を広1");
+        text.text = "";
+        crover.SetActive(true);
+        // crover.GetComponent<SpriteRenderer>().color = new Color(255f, 255f, 255f, 0f);
+        // yield return crover.GetComponent<SpriteRenderer>().DOColor(new Color(255f, 255f, 255f, 255f), 2f);
+        yield return new WaitForSeconds(1.4f);
+
+        yield return TextManager.Instance.Speech2("あっ…  しおりだ");
+        yield return TextManager.Instance.Speech2("なつかしい…");
+        yield return TextManager.Instance.Speech2("願い事がかなう って聞いて");
+        yield return TextManager.Instance.Speech2("小学校の裏庭で さがしたっけ…");
+        yield return TextManager.Instance.Speech2("願い事は「ともだちができますように」");
+        yield return TextManager.Instance.Speech2("あのころは、それで悩んでたね…");
+
+        yield return TextManager.Instance.Speech2("… … …");
+
+        // yield return TextManager.Instance.Speech2("そうだ あのころのじぶんへ");
+        // yield return TextManager.Instance.Speech2("手紙を書いてみよう");
+
+        // crover.SetActive(false);
+        yield return crover.GetComponent<SpriteRenderer>().DOColor(new Color(255f, 255f, 255f, 0f), 1f);
+        yield return new WaitForSeconds(1f);
 
         yield return null;
     }
 
     IEnumerator Start()
     {
-        yield return YotsubanoCrover();
         yield return Nikki();
+        yield return YotsubanoCrover();
         yield return Kamihikouki();
     }
 

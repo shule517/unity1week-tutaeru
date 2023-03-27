@@ -39,13 +39,13 @@ public class Scenario何を伝えたい : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         
         // BgmManager.Instance.Play("audiostock_Indium");
-        BgmManager.Instance.Play("MusMus-BGM-157-original");
-        BgmManager.Instance.audioSource.volume = 0.5f;
+        // BgmManager.Instance.Play("MusMus-BGM-157-original");
+        // BgmManager.Instance.audioSource.volume = 0.5f;
 
-        yield return new WaitForSeconds(20f);
+        yield return new WaitForSeconds(20f - 3.5f + 0.2f);
         gameTitleText.text = "あなたは じぶんへ 何を伝えたいですか？";
 
-        yield return new WaitForSeconds(104.7f);
+        yield return new WaitForSeconds(104.7f - 3.5f + 0.2f);
         // 2分4秒(124秒)から再生したい
         gameTitleText.text = @"人生たいへんなことは たくさんあります
 みなさん どうか自分らしく 生きられますように…";
