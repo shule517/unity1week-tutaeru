@@ -21,6 +21,7 @@ public class ScenarioUnityEnding : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 5f);
         yield return new WaitForSeconds(1.0f);
         SeManager.Instance.Play("Clock-Second_Hand02-1(Dry-Loop)"); // 時計チクタク
         yield return new WaitForSeconds(3.1f);

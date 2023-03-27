@@ -44,8 +44,11 @@ public class Scenario何を伝えたい : MonoBehaviour
 
         var endTime = 124.2f - 3f - 0.5f;
 
-        endTime -= 5f;
-        yield return new WaitForSeconds(5f);
+        endTime -= 16.8f;
+        yield return new WaitForSeconds(16.8f);
+
+        // endTime -= 5f;
+        // yield return new WaitForSeconds(5f);
         gameTitleText.text = "あなたは じぶんへ 何を伝えたいですか？";
 
         yield return new WaitForSeconds(endTime);
