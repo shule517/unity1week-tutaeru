@@ -23,7 +23,7 @@ public class ScenarioUnityEnding : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
         SeManager.Instance.Play("Clock-Second_Hand02-1(Dry-Loop)"); // 時計チクタク
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(3.1f);
 
         SeManager.Instance.audioSource.DOFade(endValue: 0f, duration: 2.5f);
         BgmManager.Instance.audioSource.volume = 0;
@@ -50,6 +50,10 @@ public class ScenarioUnityEnding : MonoBehaviour
         yield return TextManager.Instance.Speech2("… … …");
 
         BgmManager.Instance.Stop();
+
+        // BgmManager.Instance.Play("audiostock_891509");
+        // BgmManager.Instance.audioSource.volume = 0.5f;
+
         yield return TextManager.Instance.Speech2("やった… 完成できた…！");
 
         // yield return new WaitForSeconds(1f);
@@ -71,19 +75,24 @@ public class ScenarioUnityEnding : MonoBehaviour
         // SeManager.Instance.Play("決定ボタンを押す31");
 
         yield return new WaitForSeconds(2f);
+
+
         // TextManager.Instance.Assign("ED3: そして、あたらしいじぶんへ");
         yield return TextManager.Instance.Speech2("ED3: そして、あたらしいじぶんへ");
+        // yield return TextManager.Instance.Speech2("あそんでいただき ありがとうございました！");
+
+        // BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 2.5f);
+        yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 2f).SetEase(Ease.InQuad));
 
         // yield return new WaitUntil(() => Input.GetButtonDown("決定"));
-
         // yield return TextManager.Instance.Speech2("あなたは 過去のじんぶへ 何を伝えたいですか？");
-        yield return TextManager.Instance.Speech2("あそんでくれて ありがとうございました！");
+        // yield return TextManager.Instance.Speech2("あそんでくれて ありがとうございました！");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
 
         GameManager.Instance.InitFlag();
 
-        SceneManager.LoadScene("社畜Scene");
+        SceneManager.LoadScene("何を伝えたいScene");
     }
 
     // private IEnumerator Ending3()
