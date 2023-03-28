@@ -20,7 +20,7 @@ public class BgmManager : SingletonMonoBehaviour<BgmManager>
         audioClips = Resources.LoadAll<AudioClip>("BGM");
         audioClipDict = audioClips.ToDictionary(clip => clip.name, clip => clip);
 
-        // SceneManager.LoadScene("社畜Scene");
+        SceneManager.LoadScene("社畜Scene");
     }
 
     public void Play(string filePath)
