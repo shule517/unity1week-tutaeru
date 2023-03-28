@@ -65,6 +65,16 @@ public class TextManager : SingletonMonoBehaviour<TextManager>
         IsTalking = false;
     }
 
+    public IEnumerator Speech3(string str, float audioPitch = 1f)
+    {
+        IsTalking = true;
+
+        yield return TalkText(str, audioPitch);
+        yield return new WaitUntil(() => Input.GetButtonDown("決定"));
+        yield return null;
+        IsTalking = false;
+    }
+
     public IEnumerator Speech2(string[] strs, float audioPitch = 1f)
     {
         IsTalking = true;

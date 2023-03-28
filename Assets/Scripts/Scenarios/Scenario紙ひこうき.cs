@@ -13,7 +13,7 @@ public class Scenario紙ひこうき : MonoBehaviour
     IEnumerator Start()
     {
         // 明転から復帰（前半）
-        yield return DOTween.Sequence().Append(DOTween.To(() => 1.5f, (float x) => light2D.intensity = x, 1f, 5f).SetEase(Ease.Linear)).WaitForCompletion();
+        yield return DOTween.Sequence().Append(DOTween.To(() => 1.5f, (float x) => light2D.intensity = x, 1f, 5f - 0.941f).SetEase(Ease.Linear)).WaitForCompletion();
         // 明転から復帰（後半）
         yield return new WaitForSeconds(0.3f);
         light2D.color = Color.white;
@@ -21,8 +21,9 @@ public class Scenario紙ひこうき : MonoBehaviour
         var waitTime = 0.941f*3.0f;
         var spaceTime = 0.941f*3.0f;
 
-        yield return new WaitForSeconds(waitTime);
-        text.text = "- あのころの じぶんへ -"; yield return new WaitForSeconds(waitTime);
+        // yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(0.941f);
+        text.text = "- あのころの じぶんへ -"; yield return new WaitForSeconds(waitTime*2);
         text.text = ""; yield return new WaitForSeconds(spaceTime);
         text.text = "- Pixelart -"; yield return new WaitForSeconds(waitTime);
         text.text = "pixelはる"; yield return new WaitForSeconds(waitTime);
@@ -42,7 +43,7 @@ public class Scenario紙ひこうき : MonoBehaviour
         text.text = "No.140678 切なくも温かいエレクトロニカ"; yield return new WaitForSeconds(waitTime);
         text.text = "No.891509 エンディング・かわいい・楽しい EDM"; yield return new WaitForSeconds(waitTime);
         text.text = ""; yield return new WaitForSeconds(spaceTime);
-        text.text = "unity1week「つたえる」"; yield return new WaitForSeconds(spaceTime*2);
+        text.text = "unity1week「つたえる」"; yield return new WaitForSeconds(spaceTime*2 + 0.941f*2.0f);
         text.text = ""; yield return new WaitForSeconds(spaceTime);
 
         text.text = "ED2: あのころの じぶんへ";

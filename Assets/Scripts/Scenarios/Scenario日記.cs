@@ -20,7 +20,7 @@ public class Scenario日記 : MonoBehaviour
         nikkiAnimation.SetActive(false);
 
         text.text = "";
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(1.8f);
 
         // ひさびさに日記を書く。     
         // var days = new List<string>() { "日", "月", "火", "水", "木", "金", "土" };

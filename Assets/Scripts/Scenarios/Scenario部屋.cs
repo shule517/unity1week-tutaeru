@@ -26,10 +26,10 @@ public class Scenario部屋 : MonoBehaviour
     IEnumerator Start()
     {
         // // TODO: デバッグ フラグいじってます
-        // GameManager.Instance.hasKamihikouki = true;
+        GameManager.Instance.hasKamihikouki = true;
         // GameManager.Instance.watchedEnding1 = true;
         // // TODO: 後で消す
-        // yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.4f);
 
         // 暗い時の窓のメッセージを有効
         hatenaMadoAkarui.SetActive(false);

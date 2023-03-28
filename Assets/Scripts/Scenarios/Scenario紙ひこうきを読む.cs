@@ -17,7 +17,7 @@ public class Scenario紙ひこうきを読む : MonoBehaviour
         kamihikouki.SetActive(true);
         tegami.SetActive(false);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         SeManager.Instance.Play("紙を広1");
         // yield return new WaitForSeconds(2f);
         // SeManager.Instance.Play("紙を広1");
@@ -27,13 +27,13 @@ public class Scenario紙ひこうきを読む : MonoBehaviour
         tegami.SetActive(true);
         text.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
 
         yield return TextManager.Instance.Speech2("\n… … …");
         yield return TextManager.Instance.Speech2("\n…じぶんからの手紙？");
-        yield return TextManager.Instance.Speech2("\n… … …");
 
         yield return null;
+        yield return new WaitForSeconds(1.0f);
 
         SceneManager.LoadScene("UnityEndingScene");
 

@@ -14,6 +14,7 @@ public enum 社畜State
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
+    public bool LoadedBaseScene = false;
     public 社畜State shachikuState = 社畜State.Title;
     public bool watchedEnding1 = false; // ED1: 変わらない日々
     public bool watchedEnding2 = false; // ED2: あのころのじぶんへ

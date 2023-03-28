@@ -38,6 +38,8 @@ public class Scenario社畜 : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        // yield return new WaitUntil(() => GameManager.Instance.LoadedBaseScene);
+
         // TODO: デバッグ
         // GameManager.Instance.watchedEnding2 = true;
         if (GameManager.Instance.watchedEnding2)

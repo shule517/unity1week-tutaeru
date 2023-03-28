@@ -22,7 +22,12 @@ public class ScenarioUnityEnding : MonoBehaviour
     IEnumerator Start()
     {
         hitokage.GetComponent<SpriteRenderer>().DOFade(0f, 5f);
-        yield return new WaitForSeconds(1.0f);
+
+        // yield return DOTween.Sequence().Append(DOTween.To(() => 0f, (float x) => light2D.intensity = x, 1f, 5f).SetEase(Ease.InQuad));
+        yield return TextManager.Instance.Speech2("\n… … …");
+
+        yield return new WaitForSeconds(3.1f);
+
         SeManager.Instance.Play("Clock-Second_Hand02-1(Dry-Loop)"); // 時計チクタク
         yield return new WaitForSeconds(3.1f);
 
@@ -55,8 +60,8 @@ public class ScenarioUnityEnding : MonoBehaviour
         // BgmManager.Instance.Play("audiostock_891509");
         // BgmManager.Instance.audioSource.volume = 0.5f;
 
-        yield return TextManager.Instance.Speech2("やった… 完成した…");
-        yield return TextManager.Instance.Speech2("… … やったー！！");
+        yield return TextManager.Instance.Speech2("やった……  完成した…");
+        yield return TextManager.Instance.Speech2("…… やったー！！");
         yield return TextManager.Instance.Speech2("大変だったけど ほんとに やってよかった…！");
         // yield return TextManager.Instance.Speech2("大変だったけど ほんとによかった…！");
 
@@ -81,9 +86,14 @@ public class ScenarioUnityEnding : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
 
+        yield return TextManager.Instance.Speech3("ED3: そして、あたらしいじぶんへ");
         // TextManager.Instance.Assign("ED3: そして、あたらしいじぶんへ");
-        yield return TextManager.Instance.Speech2("ED3: そして、あたらしいじぶんへ");
         // yield return TextManager.Instance.Speech2("あそんでいただき ありがとうございました！");
+
+        yield return new WaitForSeconds(3.0f);
+
+        TextManager.Instance.text.color = Color.white;
+        TextManager.Instance.text.DOColor(Color.black, 2.0f);
 
         // BgmManager.Instance.audioSource.DOFade(endValue: 0f, duration: 2.5f);
         yield return DOTween.Sequence().Append(DOTween.To(() => 1f, (float x) => light2D.intensity = x, 0f, 2f).SetEase(Ease.InQuad));
