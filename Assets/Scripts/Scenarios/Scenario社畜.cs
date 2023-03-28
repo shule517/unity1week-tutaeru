@@ -80,7 +80,7 @@ public class Scenario社畜 : MonoBehaviour
         yield return new WaitUntil(() => Input.GetButtonDown("決定"));
         // SeManager.Instance.Play("決定ボタンを押す16");
         // SeManager.Instance.Play("決定ボタンを押す29");
-        SeManager.Instance.Play("涙のしずく");
+        SeManager.Instance.Play("涙");
 
         // BGMを止める
         gameTitleText.DOColor(Color.black, 5.0f);
@@ -167,7 +167,7 @@ public class Scenario社畜 : MonoBehaviour
         yield return new WaitUntil(() => Input.GetButtonDown("決定"));
         // SeManager.Instance.Play("決定ボタンを押す16");
         // SeManager.Instance.Play("決定ボタンを押す29");
-        SeManager.Instance.Play("涙のしずく");
+        SeManager.Instance.Play("涙");
 
         // BGMを止める
         gameTitleText.DOColor(Color.black, 5.0f);
