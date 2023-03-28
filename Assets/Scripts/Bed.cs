@@ -151,7 +151,7 @@ public class Bed : MonoBehaviour
             yield return TextManager.Instance.Speech2(text.Replace("/", "\n"));
         }
 
-        TextManager.Instance.Assign("もう寝ますか？\n   ▶ はい 　 いいえ");
+        TextManager.Instance.Assign("もう寝ますか？\n   → はい 　 いいえ");
 
         var isYes = true;
         // var 
@@ -164,14 +164,14 @@ public class Bed : MonoBehaviour
             {
                 // ピッ
                 SeManager.Instance.Play("voice1");
-                TextManager.Instance.Assign("もう寝ますか？\n   ▶ はい 　 いいえ");
+                TextManager.Instance.Assign("もう寝ますか？\n   → はい 　 いいえ");
                 isYes = true;
             }
             else if (isYes && 0 < horizontal)
             {
                 // ピッ
                 SeManager.Instance.Play("voice1");
-                TextManager.Instance.Assign("もう寝ますか？\n　    はい ▶ いいえ");
+                TextManager.Instance.Assign("もう寝ますか？\n　    はい → いいえ");
                 isYes = false;
             }
             yield return new WaitForSeconds(0.1f);
